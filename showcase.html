@@ -26,8 +26,8 @@
     </div>
     <div class="fade_in">
         <div class="vl">
-            <div class="hl"></div>
 
+            <div class="hl"></div>
             <button class="log_button collapse"># click recorder<br></button>
             <div class="content">
                 <img class="log_image" src="public/recorder.png" alt="">
@@ -47,6 +47,8 @@
             <button class="log_button collapse"># software loader<br></button>
             <div class="content">
                 <img class="log_image" style="width: 40%; height: auto;" src="public/loader.png" alt="">
+                <div class="vl_comment media"></div>
+                <p class="log_comment">test comment.</p>
             </div>
             
             <div class="hl"></div>
@@ -56,7 +58,7 @@
 </body>
 
 <script>
-    var coll = document.getElementsByClassName("log_button collapse");
+    /*var coll = document.getElementsByClassName("log_button collapse");
     var i;
     
     for (i = 0; i < coll.length; i++) {
@@ -69,16 +71,21 @@
           content.style.display = "block";
         }
       });
+    }*/
+    var coll = document.getElementsByClassName("log_button collapse");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.maxHeight){
+            content.style.maxHeight = null;
+            } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
     }
     </script>
 
 </html>
-
-<!--
-     for anyone looking here to see dog shit code expect it
-    this is my first time touching html, css, and js. enjoy the shit show :D
-,==========,
-|   |  |   |
-`-./    \.-'
-   `.__.'
--->

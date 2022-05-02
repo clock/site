@@ -47,8 +47,10 @@ body {
 }
 
 .content {
-    display: none;
+    padding: 0 18px;
+    max-height: 0;
     overflow: hidden;
+    transition: max-height 0.2s ease-out;
 }
 
 .nav {
@@ -146,7 +148,8 @@ body {
 
 .vl_comment {
     border-left: 1px solid var(--accent_color2);
-    position: absolute;
+    position: relative;
+    display: block;
     height: 23px;
     margin-top: -5px;
     margin-left: 1.4%;
