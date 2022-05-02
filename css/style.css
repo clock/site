@@ -148,15 +148,17 @@ body {
 
 .vl_comment {
     border-left: 1px solid var(--accent_color2);
-    position: relative;
-    display: block;
+    position: absolute;
     height: 23px;
     margin-top: -5px;
     margin-left: 1.4%;
 }
 
 .vl_comment.media {
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
     margin-top: 11px;
+    max-height: 0px;
 }
 
 .vl_comment.two {
