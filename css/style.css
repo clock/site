@@ -9,6 +9,7 @@
     --accent_color1: #7ebab5;
     --accent_color2: #505263;
     --text_color: #f6f5f5;
+    --text_color2: #505263;
 }
 
 body {
@@ -17,7 +18,7 @@ body {
 
 .button_other {
     font-family: Jet Brains;
-    color: var(--accent_color2);
+    color: var(--text_color2);
     text-decoration: none;
 }
 
@@ -95,6 +96,14 @@ body {
     height: 23px;
     margin-top: -5px;
     margin-left: 1.4%;
+}
+
+.vl_comment.two {
+    height: 41px;
+}
+
+.vl_comment.three {
+    height: 58px;
 }
 
 .showcase {
