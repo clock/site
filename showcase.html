@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<script src="js/main.js"></script>
+
 <head>
     <link rel="stylesheet" href="css/style.css">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>underware!</title>
+    <title></title>
 </head>
 
 <body>
     <div class="header">
         <div class="nav">
             <div class="title">
-                <a class="button_home" href="index.html">underware</a>
+                <a class="button_home" href="index.html">clock</a>
             </div>
             <div class="links">
                 <a class="button_other" href="showcase.html">showcase</a>
@@ -23,10 +25,52 @@
         </div>
     </div>
     <div class="fade_in">
-       <p class="showcase">//todo</p>
+        <div class="vl">
+            <div class="hl"></div>
+
+            <button class="log_button collapse"># click recorder<br></button>
+            <div class="content">
+                <img class="log_image" src="public/recorder.png" alt="">
+                <div class="vl_comment media"></div>
+                <p class="log_comment">censored name of program due to buyer privacy.</p>
+            </div>
+
+            <div class="hl"></div>
+            <button class="log_button collapse"># valorant shop checker<br></button>
+            <div class="content">
+                <img class="log_image" src="public/shop_checker.png" alt="">
+                <div class="vl_comment media"></div>
+                <p class="log_comment">discord bot pings users and sends custom embed message as shown.</p>
+            </div>
+
+            <div class="hl"></div>
+            <button class="log_button collapse"># software loader<br></button>
+            <div class="content">
+                <img class="log_image" style="width: 40%; height: auto;" src="public/loader.png" alt="">
+            </div>
+            
+            <div class="hl"></div>
+        </div>
        <img>
     </div>
 </body>
+
+<script>
+    var coll = document.getElementsByClassName("log_button collapse");
+    var i;
+    
+    for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.display === "block") {
+          content.style.display = "none";
+        } else {
+          content.style.display = "block";
+        }
+      });
+    }
+    </script>
 
 </html>
 

@@ -8,8 +8,9 @@
     --background_color: #0c0d11;
     --accent_color1: #7ebab5;
     --accent_color2: #505263;
-    --text_color: #f6f5f5;
-    --text_color2: #505263;
+    --text_color1: #f6f5f5;
+    --text_color2: #b0d4d1;
+    --text_color3: #f2aa61;
 }
 
 body {
@@ -18,8 +19,12 @@ body {
 
 .button_other {
     font-family: Jet Brains;
-    color: var(--text_color2);
+    color: var(--accent_color2);
     text-decoration: none;
+}
+
+.button_other:hover {
+    color: var(--text_color2);
 }
 
 .button_home {
@@ -30,10 +35,20 @@ body {
     text-decoration: none;
 }
 
+.button_home:hover
+{
+    color: var(--text_color3);
+}
+
 .header {
     align-items: center;
     justify-content: center;
     width: 100%;
+}
+
+.content {
+    display: none;
+    overflow: hidden;
 }
 
 .nav {
@@ -59,23 +74,62 @@ body {
 .log_title {
     font-family: Jet Brains;
     font-weight: bold;
-    color: var(--text_color);
+    color: var(--text_color1);
     margin-left: 5px;
     top: 100px;
 }
 
+.log_button {
+    position: relative;
+    margin-left: 5px;
+    margin-top: 5px;
+    font-family: Jet Brains;
+    font-weight: bold;
+    color: var(--text_color1);
+    background: none!important;
+    border: none;
+    padding: 0!important;
+    font-size: 16px;
+}
+
+.log_button.collapse {
+    background-color: #777;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: fit-content;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+}
+
+.log_button:hover {
+    color: var(--text_color2);
+}
+
+.log_title:hover {
+    color: var(--text_color2);
+}
+
 .log_paragraph {
     font-family: Jet Brains;
-    color: var(--text_color);
+    color: var(--text_color1);
     margin-left: 2%;
     margin-top: 5px;
 }
 
 .log_comment {
     font-family: Jet Brains;
-    color: var(--text_color);
+    color: var(--text_color1);
     margin-left: 3%;
     font-size: 14px;
+}
+
+.log_image {
+    margin-left: 2%;
+    margin-top: 5px;
+    position: relative;
 }
 
 .vl {
@@ -98,6 +152,10 @@ body {
     margin-left: 1.4%;
 }
 
+.vl_comment.media {
+    margin-top: 11px;
+}
+
 .vl_comment.two {
     height: 41px;
 }
@@ -108,20 +166,20 @@ body {
 
 .showcase {
     font-family: Jet Brains;
-    color: var(--text_color);
+    color: var(--text_color1);
     margin-left: 30%;
 }
 
 .question {
     font-family: Jet Brains;
-    color: var(--text_color);
+    color: var(--text_color1);
     margin-left: 30%;
     font-weight: bold;
 }
 
 .answer {
     font-family: Jet Brains;
-    color: var(--text_color);
+    color: var(--text_color1);
     margin-left: 31%;
 }
 
