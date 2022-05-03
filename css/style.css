@@ -74,6 +74,7 @@ body {
 }
 
 .log_title {
+    text-decoration: none;
     font-family: Jet Brains;
     font-weight: bold;
     color: var(--text_color1);

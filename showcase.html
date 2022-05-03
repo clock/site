@@ -20,7 +20,6 @@
             <div class="links">
                 <a class="button_other" href="showcase.html">showcase</a>
                 <a class="button_other" href="faq.html">faq</a>
-                <a class="button_other">apply</a>
             </div>
         </div>
     </div>
@@ -28,7 +27,7 @@
         <div class="vl">
 
             <div class="hl"></div>
-            <button class="log_button collapse"># click recorder<br></button>
+            <button class="log_button collapse" id="recorder"># click recorder<br></button>
             <div class="content">
                 <img class="log_image" src="public/recorder.png" alt="">
                 <div class="vl_comment media"></div>
@@ -36,7 +35,7 @@
             </div>
 
             <div class="hl"></div>
-            <button class="log_button collapse"># valorant shop checker<br></button>
+            <button class="log_button collapse" id="shop_checker"># valorant shop checker<br></button>
             <div class="content">
                 <img class="log_image" src="public/shop_checker.png" alt="">
                 <div class="vl_comment media"></div>
@@ -44,13 +43,59 @@
             </div>
 
             <div class="hl"></div>
-            <button class="log_button collapse"># software loader<br></button>
+            <button class="log_button collapse" id="loader"># software loader<br></button>
             <div class="content">
                 <img class="log_image" style="width: 40%; height: auto;" src="public/loader.png" alt="">
                 <div class="vl_comment media"></div>
                 <p class="log_comment">test comment.</p>
             </div>
+
+            <div class="hl"></div>
+            <button class="log_button collapse" id="csgo_cheat"># csgo cheat<br></button>
+            <div class="content">
+                <iframe width="560" margin-top="5px" height="315" src="https://www.youtube.com/embed/5aNGbLzrfPs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="vl_comment media"></div>
+                <p class="log_comment">test comment.</p>
+            </div>
+
+            <div class="hl"></div>
+            <button class="log_button collapse" id="arduino_aimbot"># arduino aimbot<br></button>
+            <div class="content">
+                <iframe width="560" margin-top="5px" height="315" src="https://www.youtube.com/embed/z7YLL2FIT_o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="vl_comment media"></div>
+                <p class="log_comment">test comment.</p>
+            </div>
+
+            <div class="hl"></div>
+            <button class="log_button collapse" id="dma"># pcie dma<br></button>
+            <div class="content">
+                <iframe width="560" margin-top="5px" height="315" src="https://www.youtube.com/embed/2yL8etqihew" title="YouTube video player" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="vl_comment media"></div>
+                <p class="log_comment">test comment.</p>
+            </div>
+
+            <div class="hl"></div>
+            <button class="log_button collapse" id="anticheat"># anticheat<br></button>
+            <div class="content">
+                <div class="vl_comment media"></div>
+                <p class="log_comment">n/a.</p>
+            </div>
+
+            <div class="hl"></div>
+            <button class="log_button collapse" id="web_menu"># web based menu<br></button>
+            <div class="content">
+                <iframe src="https://streamable.com/e/wpzu63" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+                <div class="vl_comment media"></div>
+                <p class="log_comment">test comment.</p>
+            </div>
             
+            <div class="hl"></div>
+            <button class="log_button collapse" id="chat_viewer"># discord chat viewer<br></button>
+            <div class="content">
+                <div class="vl_comment media"></div>
+                <p class="log_comment">n/a.</p>
+            </div>
+
             <div class="hl"></div>
         </div>
        <img>
@@ -72,8 +117,33 @@
         }
       });
     }*/
+    var hash = window.location.hash;
+    console.log(hash);
+
     var coll = document.getElementsByClassName("log_button collapse");
     
+    var logged_value = 90;
+    var once = true;
+
+    for (var i = 0; i < coll.length; i++) {
+        if ("#" + coll[i].id == hash) {
+            logged_value = i;
+            var t = document.getElementById(coll[i].id);
+            t.classList.toggle("active");
+
+            var content = t.nextElementSibling;
+            var vl_comment = content.children[1];
+
+            if (content.style.maxHeight){
+                content.style.maxHeight = null;
+                vl_comment.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+                vl_comment.style.maxHeight = "20px";
+            }
+        }
+    }
+
     var i;
 
     for (i = 0; i < coll.length; i++) {
@@ -85,11 +155,11 @@
             var vl_comment = content.children[1];
 
             if (content.style.maxHeight){
-            content.style.maxHeight = null;
-            vl_comment.style.maxHeight = null;
+                content.style.maxHeight = null;
+                vl_comment.style.maxHeight = null;
             } else {
-            content.style.maxHeight = content.scrollHeight + "px";
-            vl_comment.style.maxHeight = "20px";
+                content.style.maxHeight = content.scrollHeight + "px";
+                vl_comment.style.maxHeight = "20px";
             }
         });
     }
