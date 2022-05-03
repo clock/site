@@ -124,8 +124,8 @@
     
     var logged_value = 90;
     var once = true;
-
-    for (var i = 0; i < coll.length; i++) {
+    setTimeout(function(){
+        for (var i = 0; i < coll.length; i++) {
         if ("#" + coll[i].id == hash) {
             logged_value = i;
             var t = document.getElementById(coll[i].id);
@@ -143,6 +143,7 @@
             }
         }
     }
+    }, 500);
 
     var i;
 
