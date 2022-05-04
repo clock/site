@@ -122,6 +122,14 @@ body {
     margin-top: 5px;
 }
 
+.log_paragraph.showcase{
+    font-family: Jet Brains;
+    color: var(--text_color1);
+    margin-left: 2%;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
 .log_comment {
     font-family: Jet Brains;
     color: var(--text_color1);
@@ -160,6 +168,14 @@ body {
     transition: max-height 0.2s ease-out;
     margin-top: 11px;
     max-height: 0px;
+}
+
+.vl_comment.none {
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    margin-top: 11px;
+    max-height: 0px;
+    height: 0px;
 }
 
 .vl_comment.two {
