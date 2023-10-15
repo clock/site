@@ -1,0 +1,21 @@
+.project-slider {
+    display: flex;
+    overflow: hidden;
+  }
+  
+  .project-slide {
+    flex: 0 0 100%;
+    min-width: 100%; /* Ensure each slide takes full width */
+  }
+
+  .fade-animation {
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  .fade-out {
+    opacity: 0;
+  }
+  
+  .fade-in {
+    opacity: 1;
+  }
