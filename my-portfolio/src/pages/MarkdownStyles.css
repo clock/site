@@ -1,0 +1,42 @@
+/* Markdown container */
+.markdown-container {
+  min-height: 100vh;
+  transition: all 0.5s;
+  background-color: #f0f0f0; /* Set your background color here */
+  color: #333; /* Set your text color here */
+}
+
+/* Markdown header */
+.markdown-header {
+  background-color: #007acc; /* Set your header background color here */
+  padding: 1rem;
+  color: white; /* Set your header text color here */
+}
+
+/* Markdown title */
+.markdown-title {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+/* Markdown content */
+.markdown-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* Markdown body */
+.markdown-body {
+  /* Define your Markdown content styles here */
+}
+
+/* Custom styles for images and links within Markdown content */
+.markdown-body img {
+  max-width: 100%;
+  height: auto;
+}
+
+.markdown-body a {
+  color: #007acc;
+}
