@@ -10,7 +10,7 @@ import { FaProjectDiagram } from 'react-icons/fa';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import { motion } from 'framer-motion';
-import Reveal from '../Reveal';
+import Reveal from '../components/Reveal';
 
 export default function Home() {
   const [darkMode, setDarkMode] = useState(true);
