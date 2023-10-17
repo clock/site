@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import '../App.css';
 import Loader from '../public/markdown/Loader.md';
 import MarkdownLoader from '../components/MarkdownLoader';
+import Reveal from '../components/Reveal';
 
 export default function Writeups() {
   const [markdownContent, setMarkdownContent] = useState('');
@@ -41,6 +42,7 @@ export default function Writeups() {
 
   return (
     <div className={containerClasses}>
+      <Reveal>
       {isMobile ? (
         <div className="p-4">
           <div className={'prose lg:prose-xl'}>
@@ -54,6 +56,7 @@ export default function Writeups() {
           </div>
         </div>
       )}
+      </Reveal>
     </div>
   );
 }

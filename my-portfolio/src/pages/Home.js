@@ -78,8 +78,8 @@ export default function Home() {
 
   return (
     <div className={darkMode ? 'dark' : ''}>
-        <h1>hello</h1>
-      <div ref={aboutRef} id="about" className={gradientClass}>
+        
+      <div ref={aboutRef} id="about" className={gradientClass + " md:flex md:items-center md:justify-center md:flex-col"}>
         <div className="border-b-2 navbar z-10 fixed top-0 left-0 w-full p-4 text-gray-900 bg-white flex justify-around dark:bg-gray-800 dark:border-gray-600 dark:text-white">
           <p onClick={() => handleScrollToSection(aboutRef)} className="nav-link cursor-pointer font-Roboto">
             About
@@ -93,9 +93,9 @@ export default function Home() {
           <p className="nav-link cursor-pointer font-Roboto">Writeups</p>
         </div>
 
-        <main className="px-4 pt-16">
+        <main className="px-4 pt-16 md:w-[75%] lg:w-[60%] md:flex md:items-center md:justify-center md:flex-col">
           <Reveal>
-            <section className="flex items-center justify-center">
+            <section className="lg:flex lg:items-center lg:justify-center">
               <div className="py-10 flex items-center">
                 <div className="dark:bg-slate-600 bg-gray-800 rounded-full w-36 h-36 drop-shadow-2xl">
                   <Reveal unique="true">
@@ -104,8 +104,8 @@ export default function Home() {
                 </div>
                 <div className="pl-6">
                   <div className="flex flex-col">
-                    <h1 className="text-3xl dark:text-white font-Raleway font-bold">Hi, I'm Aiden.</h1>
-                    <h2 className="pt-1 font-Roboto text-lg dark:text-gray-300">Software Developer</h2>
+                    <h1 className="lg:text-4xl md:text-3xl text-3xl dark:text-white font-Raleway font-bold">Hi, I'm Aiden.</h1>
+                    <h2 className="pt-1 font-Roboto text-lg lg:text-xl dark:text-gray-300">Software Developer</h2>
                   </div>
                   <div className="flex items-center">
                     <a href="#">
@@ -117,12 +117,12 @@ export default function Home() {
             </section>
           </Reveal>
           <Reveal>
-            <div ref={skillsRef} id="skills" className="px-12 shadow-lg py-20 pt-6 rounded-lg dark:shadow-slate-950">
+            <div ref={skillsRef} id="skills" className="px-12 shadow-lg py-20 pt-6 lg:py-10 md:py-12 rounded-lg dark:shadow-slate-950">
               <div className="flex items-center">
                 <AiOutlineUnorderedList className="text-3xl mr-2 dark:text-white" />
                 <h1 className="text-3xl dark:text-white font-Raleway font-bold">About Me</h1>
               </div>
-              <h2 className="pt-1 font-Roboto text-base dark:text-gray-300">
+              <h2 className="pt-1 font-Roboto text-base dark:text-gray-300 leading-relaxed">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
                 dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
                 ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
@@ -157,7 +157,7 @@ export default function Home() {
                   <p className="text-base font-Raleway font-bold dark:text-white">• Ruby</p>
                 </div>
               </div>
-              <h2 className="font-Roboto text-base dark:text-gray-300">
+              <h2 className="font-Roboto text-base dark:text-gray-300 leading-relaxed">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
                 dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
                 ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
@@ -184,12 +184,12 @@ export default function Home() {
                 </div>
 
                 {/* Project description */}
-                <h2 className={`text-base font-Roboto ${darkMode ? 'dark:text-gray-300' : 'text-gray-700'} overflow-hidden line-clamp-3 ${isAnimating ? 'fade-out' : 'fade-in'} fade-animation`}>
+                <h2 className={`leading-relaxed text-base font-Roboto ${darkMode ? 'dark:text-gray-300' : 'text-gray-700'} overflow-hidden line-clamp-3 ${isAnimating ? 'fade-out' : 'fade-in'} fade-animation`}>
                   {projectInfo[currentIndex].description}
                 </h2>
 
                 {/* Image */}
-                <div className={`relative mt-4 rounded-lg drop-shadow-xl ${isAnimating ? 'fade-out' : 'fade-in'} fade-animation`} style={{ height: '200px' }}>
+                <div className={`relative mt-4 rounded-lg drop-shadow-xl ${isAnimating ? 'fade-out' : 'fade-in'} fade-animation`} style={{ height: '400px' }}>
                   <img
                     src={projectInfo[currentIndex].image}
                     alt={projectInfo[currentIndex].title}
