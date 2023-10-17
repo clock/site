@@ -5,7 +5,7 @@ import MarkdownLoader from '../components/MarkdownLoader';
 
 export default function Writeups() {
   const [markdownContent, setMarkdownContent] = useState('');
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 640);
 
   useEffect(() => {
@@ -44,7 +44,7 @@ export default function Writeups() {
       {isMobile ? (
         <div className="p-4">
           <div className={'prose lg:prose-xl'}>
-            <MarkdownLoader filePath={Loader} />
+            <MarkdownLoader filePath={Loader} darkMode={darkMode}/>
           </div>
         </div>
       ) : (
