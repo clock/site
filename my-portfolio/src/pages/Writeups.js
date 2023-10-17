@@ -20,7 +20,9 @@ export default function Writeups() {
   };
 
   const containerClasses = `min-h-screen transition-all duration-500 ${
-    darkMode ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-900'
+    darkMode
+      ? 'bg-[#1d1f21] text-white'
+      : 'bg-gray-100 text-gray-900'
   }`;
 
   useEffect(() => {
@@ -41,14 +43,14 @@ export default function Writeups() {
     <div className={containerClasses}>
       {isMobile ? (
         <div className="p-4">
-          <div className="prose lg:prose-xl">
+          <div className={'prose lg:prose-xl'}>
             <MarkdownLoader filePath={Loader} />
           </div>
         </div>
       ) : (
-        <div className="container mx-auto p-4 flex items-center justify-center h-full">
-          <div className="prose lg:prose-xl">
-            <MarkdownLoader filePath={Loader} />
+        <div className="container mx-auto max-w-4xl p-4 flex items-center justify-center h-full">
+          <div className={'prose lg:prose-xl p-4'}>
+            <MarkdownLoader filePath={Loader} darkMode={darkMode} />
           </div>
         </div>
       )}

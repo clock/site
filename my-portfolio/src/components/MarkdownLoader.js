@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import '../App.css';
 import MarkdownRenderer from './MarkdownRenderer';
 
-const MarkdownLoader = ({ filePath }) => {
+const MarkdownLoader = ({ filePath, darkMode} ) => {
   const [markdown, setMarkdown] = useState('');
 
   useEffect(() => {
@@ -11,7 +12,7 @@ const MarkdownLoader = ({ filePath }) => {
       .catch((error) => console.error('Error loading Markdown:', error));
   }, [filePath]);
 
-  return <MarkdownRenderer markdown={markdown} />;
+  return <MarkdownRenderer markdown={markdown} darkMode={darkMode} />;
 };
 
 export default MarkdownLoader;
