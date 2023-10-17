@@ -6,12 +6,30 @@ import Reveal from '../components/Reveal';
 
 export default function Writeups() {
   const [markdownContent, setMarkdownContent] = useState('');
+  const [markdownTarget, setMarkdownTarget] = useState(null);
   const [darkMode, setDarkMode] = useState(true);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 640);
 
+  let mkFile = "";
+
+  let lookupMap = new Map();
+
+  lookupMap = {
+    'Loader' : Loader,  
+  }
+
   useEffect(() => {
     // Fetch the Markdown content from the file
-    fetch(Loader)
+    let buffer = (window.location.href).split("#");
+    let text = buffer[buffer.length - 1];
+    console.log(text);
+
+    setMarkdownTarget(lookupMap[text]);
+
+    if (markdownTarget == undefined || markdownTarget == null)
+      return;
+
+    fetch(markdownTarget)
       .then((response) => response.text())
       .then((data) => setMarkdownContent(data));
   }, []);
@@ -46,13 +64,13 @@ export default function Writeups() {
       {isMobile ? (
         <div className="p-4">
           <div className={'prose lg:prose-xl'}>
-            <MarkdownLoader filePath={Loader} darkMode={darkMode}/>
+            <MarkdownLoader filePath={markdownTarget} darkMode={darkMode}/>
           </div>
         </div>
       ) : (
         <div className="container mx-auto max-w-4xl p-4 flex items-center justify-center h-full">
           <div className={'prose lg:prose-xl p-4'}>
-            <MarkdownLoader filePath={Loader} darkMode={darkMode} />
+            <MarkdownLoader filePath={markdownTarget} darkMode={darkMode} />
           </div>
         </div>
       )}
