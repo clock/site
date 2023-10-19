@@ -80,7 +80,7 @@ export default function Home() {
     <div className={darkMode ? 'dark' : ''}>
         
       <div ref={aboutRef} id="about" className={gradientClass + " md:flex md:items-center md:justify-center md:flex-col"}>
-        <div className="border-b-2 navbar z-10 fixed top-0 left-0 w-full p-4 text-gray-900 bg-white flex justify-around dark:bg-gray-800 dark:border-gray-600 dark:text-white">
+        <div className="lg:px-[18%] border-b-2 navbar z-10 fixed top-0 left-0 w-full p-4 text-gray-900 bg-white flex justify-around dark:bg-gray-800 dark:border-gray-600 dark:text-white">
           <p onClick={() => handleScrollToSection(aboutRef)} className="nav-link cursor-pointer font-Roboto">
             About
           </p>
@@ -118,11 +118,11 @@ export default function Home() {
           </Reveal>
           <Reveal>
             <div ref={skillsRef} id="skills" className="px-12 shadow-lg py-20 pt-6 lg:py-10 md:py-12 rounded-lg dark:shadow-slate-950">
-              <div className="flex items-center">
+              <div className="flex items-center lg:text-center">
                 <AiOutlineUnorderedList className="text-3xl mr-2 dark:text-white" />
-                <h1 className="text-3xl dark:text-white font-Raleway font-bold">About Me</h1>
+                <h1 className="text-3xl dark:text-white font-Raleway font-bold lg:text-center">About Me</h1>
               </div>
-              <h2 className="pt-1 font-Roboto text-base dark:text-gray-300 leading-relaxed">
+              <h2 className="pt-1 font-Roboto text-base dark:text-gray-300 leading-relaxed lg:text-lg md:leading-7 lg:leading-loose">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
                 dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
                 ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
@@ -157,7 +157,7 @@ export default function Home() {
                   <p className="text-base font-Raleway font-bold dark:text-white">• Ruby</p>
                 </div>
               </div>
-              <h2 className="font-Roboto text-base dark:text-gray-300 leading-relaxed">
+              <h2 className="font-Roboto text-base dark:text-gray-300 leading-relaxed lg:text-lg md:leading-7 lg:leading-loose">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
                 dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
                 ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
@@ -184,7 +184,7 @@ export default function Home() {
                 </div>
 
                 {/* Project description */}
-                <h2 className={`leading-relaxed text-base font-Roboto ${darkMode ? 'dark:text-gray-300' : 'text-gray-700'} overflow-hidden line-clamp-3 ${isAnimating ? 'fade-out' : 'fade-in'} fade-animation`}>
+                <h2 className={`lg:text-lg md:leading-7 lg:leading-loose leading-relaxed text-base font-Roboto ${darkMode ? 'dark:text-gray-300' : 'text-gray-700'} overflow-hidden line-clamp-3 ${isAnimating ? 'fade-out' : 'fade-in'} fade-animation`}>
                   {projectInfo[currentIndex].description}
                 </h2>
 
