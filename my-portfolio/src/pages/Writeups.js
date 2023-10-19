@@ -1,6 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import '../App.css';
 import Loader from '../public/markdown/Loader.md';
+import Unknown from '../public/markdown/Unknown.md';
 import MarkdownLoader from '../components/MarkdownLoader';
 import Reveal from '../components/Reveal';
 
@@ -8,41 +10,47 @@ export default function Writeups() {
   const [markdownContent, setMarkdownContent] = useState('');
   const [markdownTarget, setMarkdownTarget] = useState(null);
   const [darkMode, setDarkMode] = useState(true);
+  const [writeupList, setWriteupList] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 640);
+  const location = useLocation();
 
-  let mkFile = "";
-
-  let lookupMap = new Map();
-
-  lookupMap = {
-    'Loader' : Loader,  
-  }
+  let lookupMap = {
+    'Loader': Loader,
+    'Default': Unknown,
+  };
 
   useEffect(() => {
-    // Fetch the Markdown content from the file
-    let buffer = (window.location.href).split("#");
-    let text = buffer[buffer.length - 1];
-    console.log(text);
+    console.log(location.hash);
 
-    setMarkdownTarget(lookupMap[text]);
+    const text = location.hash.slice(1); // Get the value after the '#' in the URL
+    if (location.hash.slice(1) == '' || location.hash.slice(1) == undefined) {
+      setWriteupList(true);
+    }
+    else {
 
-    if (markdownTarget == undefined || markdownTarget == null)
-      return;
+      // Use 'Default' if not found in the lookupMap
+      setMarkdownTarget(lookupMap[text] || lookupMap['Default']);
 
-    fetch(markdownTarget)
-      .then((response) => response.text())
-      .then((data) => setMarkdownContent(data));
-  }, []);
+      if (markdownTarget) {
+        fetch(markdownTarget)
+          .then((response) => response.text())
+          .then((data) => setMarkdownContent(data))
+          .catch((error) => {
+            console.error("Error fetching content:", error);
+            // Handle the error, e.g., show a message to the user
+          });
+      }
+    }
+  }, [location, markdownTarget]);
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
   };
 
-  const containerClasses = `min-h-screen transition-all duration-500 ${
-    darkMode
+  const containerClasses = `min-h-screen transition-all duration-500 ${darkMode
       ? 'bg-[#1d1f21] text-white'
       : 'bg-gray-100 text-gray-900'
-  }`;
+    }`;
 
   useEffect(() => {
     // Add an event listener to track window size changes
@@ -61,19 +69,23 @@ export default function Writeups() {
   return (
     <div className={containerClasses}>
       <Reveal>
-      {isMobile ? (
-        <div className="p-4">
-          <div className={'prose lg:prose-xl'}>
-            <MarkdownLoader filePath={markdownTarget} darkMode={darkMode}/>
-          </div>
-        </div>
-      ) : (
-        <div className="container mx-auto max-w-4xl p-4 flex items-center justify-center h-full">
-          <div className={'prose lg:prose-xl p-4'}>
-            <MarkdownLoader filePath={markdownTarget} darkMode={darkMode} />
-          </div>
-        </div>
-      )}
+        {markdownContent ? ( // Render only if markdownContent is available
+          isMobile ? (
+            <div className="p-4">
+              <div className={'prose lg:prose-xl'}>
+                <MarkdownLoader filePath={markdownTarget} darkMode={darkMode} />
+              </div>
+            </div>
+          ) : (
+            <div className="container mx-auto max-w-4xl p-4 flex items-center justify-center h-full">
+              <div className={'prose lg:prose-xl p-4'}>
+                <MarkdownLoader filePath={markdownTarget} darkMode={darkMode} />
+              </div>
+            </div>
+          )
+        ) : (
+          <div>Loading... or handle error here</div>
+        )}
       </Reveal>
     </div>
   );
