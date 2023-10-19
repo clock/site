@@ -81,16 +81,16 @@ export default function Home() {
         
       <div ref={aboutRef} id="about" className={gradientClass + " md:flex md:items-center md:justify-center md:flex-col"}>
         <div className="lg:px-[18%] border-b-2 navbar z-10 fixed top-0 left-0 w-full p-4 text-gray-900 bg-white flex justify-around dark:bg-gray-800 dark:border-gray-600 dark:text-white">
-          <p onClick={() => handleScrollToSection(aboutRef)} className="nav-link cursor-pointer font-Roboto">
+          <p onClick={() => handleScrollToSection(aboutRef)} className="nav-link cursor-pointer font-Roboto hover:text-gray-600 dark:hover:text-gray-300">
             About
           </p>
-          <p onClick={() => handleScrollToSection(skillsRef)} className="nav-link cursor-pointer font-Roboto">
+          <p onClick={() => handleScrollToSection(skillsRef)} className="nav-link cursor-pointer font-Roboto hover:text-gray-600 dark:hover:text-gray-300">
             Skills
           </p>
-          <p onClick={() => handleScrollToSection(projectsRef)} className="nav-link cursor-pointer font-Roboto">
+          <p onClick={() => handleScrollToSection(projectsRef)} className="nav-link cursor-pointer font-Roboto hover:text-gray-600 dark:hover:text-gray-300">
             Projects
           </p>
-          <p className="nav-link cursor-pointer font-Roboto">Writeups</p>
+          <a href="./#Writeups" className="nav-link cursor-pointer font-Roboto hover:text-gray-700 dark:hover:text-gray-300">Writeups</a>
         </div>
 
         <main className="px-4 pt-16 md:w-[75%] lg:w-[60%] md:flex md:items-center md:justify-center md:flex-col">
@@ -176,7 +176,7 @@ export default function Home() {
                 {/* Project title */}
                 <div className={`flex items-center ${isAnimating ? 'fade-out' : 'fade-in'} fade-animation`}>
                   <FaProjectDiagram className={`text-3xl mr-2 ${darkMode ? 'dark:text-white' : 'text-gray-800'}`} />
-                  <h1 className={`text-3xl underline decoration-2 underline-offset-4 hover:text-gray-700 dark:hover:text-gray-200 ${darkMode ? 'dark:text-white' : 'text-black'} font-Raleway font-bold mb-2`}>
+                  <h1 className={`text-3xl underline decoration-2 underline-offset-4 hover:text-gray-700 dark:hover:text-gray-300 ${darkMode ? 'dark:text-white' : 'text-black'} font-Raleway font-bold mb-2`}>
                     <a href={projectInfo[currentIndex].link} target="_blank" rel="noopener noreferrer">
                       {projectInfo[currentIndex].title}
                     </a>

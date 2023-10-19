@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import '../App.css';
 import Loader from '../public/markdown/Loader.md';
-import Unknown from '../public/markdown/Unknown.md';
 import MarkdownLoader from '../components/MarkdownLoader';
 import Reveal from '../components/Reveal';
 
@@ -15,61 +14,73 @@ export default function Writeups() {
   const location = useLocation();
 
   let lookupMap = {
-    'Loader': Loader,
-    'Default': Unknown,
+    'loader': Loader,
   };
 
   useEffect(() => {
-    console.log(location.hash);
+    const text = location.hash.slice(1).toLowerCase();
 
-    const text = location.hash.slice(1); // Get the value after the '#' in the URL
-    if (location.hash.slice(1) == '' || location.hash.slice(1) == undefined) {
+    if (text && lookupMap[text]) {
+      setMarkdownTarget(lookupMap[text]);
+      setWriteupList(false);
+      fetch(markdownTarget)
+        .then((response) => response.text())
+        .then((data) => setMarkdownContent(data))
+        .catch((error) => {
+          console.error("Error fetching content:", error);
+          window.location.hash = 'Writeups';
+        });
+    } else {
       setWriteupList(true);
-    }
-    else {
-
-      // Use 'Default' if not found in the lookupMap
-      setMarkdownTarget(lookupMap[text] || lookupMap['Default']);
-
-      if (markdownTarget) {
-        fetch(markdownTarget)
-          .then((response) => response.text())
-          .then((data) => setMarkdownContent(data))
-          .catch((error) => {
-            console.error("Error fetching content:", error);
-            // Handle the error, e.g., show a message to the user
-          });
-      }
+      setMarkdownTarget(null);
     }
   }, [location, markdownTarget]);
 
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
+  const handleBackClick = () => {
+    if (writeupList) {
+      // Navigate to /home if writeupList is true
+      window.location.href = '/home';
+    } else {
+      // Navigate to /#Writeups if writeupList is false
+      window.location.hash = 'Writeups';
+    }
   };
 
   const containerClasses = `min-h-screen transition-all duration-500 ${darkMode
-      ? 'bg-[#1d1f21] text-white'
-      : 'bg-gray-100 text-gray-900'
-    }`;
+    ? 'bg-[#1d1f21] text-white'
+    : 'bg-gray-100 text-gray-900'
+  }`;
 
   useEffect(() => {
-    // Add an event listener to track window size changes
     const handleResize = () => {
       setIsMobile(window.innerWidth < 640);
     };
 
     window.addEventListener('resize', handleResize);
 
-    // Clean up the event listener when the component is unmounted
     return () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
 
+  // Map the keys outside of the return statement
+  const linkElements = Object.keys(lookupMap).map((key) => (
+    <div key={key}>
+      <a className="text-gray-100 hover:text-gray-200" href={`#writeups#${key}`}>{`# ${key.charAt(0).toUpperCase() + key.slice(1)}`}</a>
+    </div>
+  ));
+
   return (
     <div className={containerClasses}>
       <Reveal>
-        {markdownContent ? ( // Render only if markdownContent is available
+        {writeupList ? (
+          <div className="flex items-center px-[18%] pt-10 h-full">
+            <div className={'prose lg:prose-xl p-4'}>
+            <button onClick={handleBackClick}>Back</button>
+              {linkElements}
+            </div>
+          </div>
+        ) : (
           isMobile ? (
             <div className="p-4">
               <div className={'prose lg:prose-xl'}>
@@ -83,8 +94,6 @@ export default function Writeups() {
               </div>
             </div>
           )
-        ) : (
-          <div>Loading... or handle error here</div>
         )}
       </Reveal>
     </div>
