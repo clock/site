@@ -54,7 +54,7 @@ export default function Writeups() {
   const handleBackClick = () => {
     if (writeupList) {
       // Navigate to /home if writeupList is true
-      window.location.href = '/home';
+      window.location.href = '/site';
     } else {
       // Navigate to /#Writeups if writeupList is false
       window.location.hash = 'Writeups';

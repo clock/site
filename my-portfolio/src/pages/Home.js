@@ -27,7 +27,7 @@ export default function Home() {
       description: 'Software loader excluding access from non-paying users or users without an account. Disallow the ability to crack / pirate software. This is a full stack application with an API, Nextjs React admin panel using Tailwind CSS, SQL database with locking, and finally, a C++ client is all used.',
       image: project2,
       languages: ['C++', 'Node.js', 'SQL', 'React', 'Tailwind'],
-      link: '../#writeups#loader',
+      link: '../site/#writeups#loader',
     },
   ];
 
