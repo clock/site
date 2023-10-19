@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import '../App.css';
 import avatarNoBackground from '../public/avatar no background.png';
 import project1 from '../public/Screenshot 2023-10-12 180200.png';
@@ -9,39 +9,31 @@ import { GiSkills } from 'react-icons/gi';
 import { FaProjectDiagram } from 'react-icons/fa';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { AiOutlineArrowRight } from 'react-icons/ai';
+import { MdDarkMode } from 'react-icons/md';
 import { motion } from 'framer-motion';
 import Reveal from '../components/Reveal';
 
 export default function Home() {
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState(() => {
+    const storedDarkMode = localStorage.getItem('darkMode');
+    return storedDarkMode ? JSON.parse(storedDarkMode) : true;
+  });
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
 
   const projectInfo = [
     {
-      title: 'Click Recorder',
-      description: 'Censored name of the program due to buyer privacy. \
-      this program records the clicks of the user in the "recorder" tab of the DirectX menu.\
-      from these clicks, a "click profile" is created to replicate these clicks humanly.\
-      this denies the ability for a serverside anticheat to tell the user is\
-      using an autoclicker. creating an unfair advantage',
-      image: project1,
-      languages: ['JavaScript', 'HTML', 'CSS'],
-      link: '#',
-    },
-    {
       title: 'Software Loader',
-      description: 'The main issue with selling software is cracking and pirating said software \
-      this software loader is a solution to this problem. by checking username, hardware components like \
-      cpu serial number, disk serial number, and mac address you can check if the user is \
-      the user paying for the software. even if the user gets passed these checks, the software is \
-      still loaded by streaming bytes and manual mapping the exe or file. this way the user would \
-      have to manually dump the software, fix imports, and much more things to run it.',
+      description: 'Software loader excluding access from non-paying users or users without an account. Disallow the ability to crack / pirate software. This is a full stack application with an API, Nextjs React admin panel using Tailwind CSS, SQL database with locking, and finally, a C++ client is all used.',
       image: project2,
-      languages: ['HTML', 'CSS'],
-      link: '##',
+      languages: ['C++', 'Node.js', 'SQL', 'React', 'Tailwind'],
+      link: '../#writeups#loader',
     },
   ];
+
+  useEffect(() => {
+    localStorage.setItem('darkMode', JSON.stringify(darkMode));
+  }, [darkMode]);
 
   const aboutRef = useRef(null);
   const skillsRef = useRef(null);
@@ -76,9 +68,13 @@ export default function Home() {
 
   const gradientClass = darkMode ? 'bg-gradient-to-l from-gray-900 to-gray-800 bg-right' : 'bg-white';
 
+  const toggleDarkMode = () => {
+    setDarkMode((prevDarkMode) => !prevDarkMode);
+  };
+
   return (
     <div className={darkMode ? 'dark' : ''}>
-        
+
       <div ref={aboutRef} id="about" className={gradientClass + " md:flex md:items-center md:justify-center md:flex-col"}>
         <div className="lg:px-[18%] border-b-2 navbar z-10 fixed top-0 left-0 w-full p-4 text-gray-900 bg-white flex justify-around dark:bg-gray-800 dark:border-gray-600 dark:text-white">
           <p onClick={() => handleScrollToSection(aboutRef)} className="nav-link cursor-pointer font-Roboto hover:text-gray-600 dark:hover:text-gray-300">
@@ -108,8 +104,9 @@ export default function Home() {
                     <h2 className="pt-1 font-Roboto text-lg lg:text-xl dark:text-gray-300">Software Developer</h2>
                   </div>
                   <div className="flex items-center">
-                    <a href="#">
-                      <AiFillGithub className="text-3xl dark:fill-white" />
+                  <MdDarkMode className="text-3xl dark:fill-white cursor-pointer dark:hover:fill-gray-200 hover:text-gray-700" onClick={toggleDarkMode} />
+                    <a href='https://github.com/clock' target="_blank">
+                      <AiFillGithub className="text-3xl dark:fill-white hover:text-gray-700 dark:hover:fill-gray-200" />
                     </a>
                   </div>
                 </div>
@@ -123,11 +120,7 @@ export default function Home() {
                 <h1 className="text-3xl dark:text-white font-Raleway font-bold lg:text-center">About Me</h1>
               </div>
               <h2 className="pt-1 font-Roboto text-base dark:text-gray-300 leading-relaxed lg:text-lg md:leading-7 lg:leading-loose">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-                ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-                mollit anim id est laborum.
+                From an early age, I felt an undeniable pull toward programming. The thrill of crafting software and the intrigue of exploring the inner workings of technology captivated me. As I delved deeper into computer science, I honed my focus on software security and exploitation. My journey began with techniques to manipulate virtual memory in games, enabling me to create cheats, while also creating efficiency-enhancing scripts for daily tasks. The power to automate once time-consuming chores felt like a superpower I wanted to share with everyone.
               </h2>
             </div>
           </Reveal>
@@ -139,30 +132,26 @@ export default function Home() {
               </div>
               <div className="grid grid-cols-2 gap-1 my-4">
                 <div className="">
-                  <p className="text-base font-Raleway font-bold dark:text-white">• JavaScript</p>
+                  <p className="text-base font-Raleway font-bold dark:text-white">• C++</p>
+                </div>
+                <div className="">
+                  <p className="text-base font-Raleway font-bold dark:text-white">• Node.js</p>
+                </div>
+                <div className="">
+                  <p className="text-base font-Raleway font-bold dark:text-white">• Javascript</p>
+                </div>
+                <div className="">
+                  <p className="text-base font-Raleway font-bold dark:text-white">• React</p>
                 </div>
                 <div className="">
                   <p className="text-base font-Raleway font-bold dark:text-white">• Python</p>
                 </div>
                 <div className="">
-                  <p className="text-base font-Raleway font-bold dark:text-white">• Java</p>
-                </div>
-                <div className="">
-                  <p className="text-base font-Raleway font-bold dark:text-white">• HTML/CSS</p>
-                </div>
-                <div className="">
-                  <p className="text-base font-Raleway font-bold dark:text-white">• C#</p>
-                </div>
-                <div className="">
-                  <p className="text-base font-Raleway font-bold dark:text-white">• Ruby</p>
+                  <p className="text-base font-Raleway font-bold dark:text-white">• Lua</p>
                 </div>
               </div>
               <h2 className="font-Roboto text-base dark:text-gray-300 leading-relaxed lg:text-lg md:leading-7 lg:leading-loose">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-                ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-                mollit anim id est laborum.
+                I possess a diverse skill set in programming languages and technologies, including proficiency in C++, Node.js, JavaScript, React, Python, and Lua. These skills enable me to tackle a wide range of software development and scripting tasks, from low-level system programming to web development and automation.
               </h2>
             </div>
           </Reveal>
@@ -177,7 +166,7 @@ export default function Home() {
                 <div className={`flex items-center ${isAnimating ? 'fade-out' : 'fade-in'} fade-animation`}>
                   <FaProjectDiagram className={`text-3xl mr-2 ${darkMode ? 'dark:text-white' : 'text-gray-800'}`} />
                   <h1 className={`text-3xl underline decoration-2 underline-offset-4 hover:text-gray-700 dark:hover:text-gray-300 ${darkMode ? 'dark:text-white' : 'text-black'} font-Raleway font-bold mb-2`}>
-                    <a href={projectInfo[currentIndex].link} target="_blank" rel="noopener noreferrer">
+                    <a href={projectInfo[currentIndex].link} rel="noopener noreferrer">
                       {projectInfo[currentIndex].title}
                     </a>
                   </h1>
@@ -206,7 +195,6 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-
 
                 {/* Languages */}
                 <div className={`flex my-4 ${isAnimating ? 'fade-out' : 'fade-in'} fade-animation`}>
