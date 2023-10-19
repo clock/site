@@ -22,7 +22,7 @@ import projectImage from '../public/image.png';
 const projectInfo = [
   {
     title: 'Name of the software (length doesnt matter)',
-    description: 'Just a simple desc, this will but cut off depending on what device you're using. just leaving... at the end.',
+    description: 'Just a simple desc, this will but cut off depending on what device youre using. just leaving... at the end.',
     image: projectImage,
     languages: ['C++', 'Node.js', 'SQL', 'React', 'Anything'],
     link: '../#writeups#example',
