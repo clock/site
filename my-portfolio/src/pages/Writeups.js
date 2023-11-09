@@ -3,7 +3,6 @@ import { useLocation } from 'react-router-dom';
 import '../App.css';
 import Loader from '../public/markdown/Loader.md';
 import MarkdownLoader from '../components/MarkdownLoader';
-import { MdDarkMode } from 'react-icons/md';
 import Reveal from '../components/Reveal';
 
 export default function Writeups() {
