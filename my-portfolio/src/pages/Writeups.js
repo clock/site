@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import '../App.css';
 import Loader from '../public/markdown/Loader.md';
+import SkinportBot from '../public/markdown/SkinportBot.md';
 import MarkdownLoader from '../components/MarkdownLoader';
 import Reveal from '../components/Reveal';
 
@@ -19,6 +20,7 @@ export default function Writeups() {
 
   let lookupMap = {
     'loader': Loader,
+    'skinportbot': SkinportBot,
   };
 
   useEffect(() => {

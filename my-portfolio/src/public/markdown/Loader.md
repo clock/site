@@ -18,7 +18,7 @@ Typically when injecting DLL's you will just let Windows handle it. Get the hand
 
 ![Alt Text](https://cdn.discordapp.com/attachments/1051656181099266049/1163455864104034354/image.png?ex=653fa3b5&is=652d2eb5&hm=b4f83686c9622aa92058b0863d1c645b93ebcb17e681065a2b43aa9b2a60e6b4&)
 
-Load library automatically does reallocation, so once someone has your DLL they can just use Load Library to use it since it will just do reallocation again! That's when we introduce something called "manual mapping". All that manual mapping does is not rely on Windows to load our binary. We **manually** go through the sections of the PE Table and modify them with the proper reallocation. We are doing reallocation, we are finding the import addresses, and we are loading not found imports.
+Load library automatically does reallocation, so once someone has your DLL they can just use Load Library to use it since it will just do reallocation again! That's when we introduce something called "manual mapping". All that manual mapping does is not rely on Windows to load our binary. We manually go through the sections of the PE Table and modify them with the proper reallocation. We are doing reallocation, we are finding the import addresses, and we are loading not found imports.
 
 Okay, so what? We just manual map on a client and boom we can't get cracked! Well not exactly... most manual mapping is done through shell code only through a client leaving a similar problem with manual mapping. If someone just gets the address of your binary, gets the size, and dumps it that shell code will just do reallocations and nicely fix it up for the bad actor.
 

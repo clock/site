@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import '../App.css';
 import avatarNoBackground from '../public/avatar no background.png';
-import project1 from '../public/Screenshot 2023-10-12 180200.png';
 import project2 from '../public/Screenshot 2023-10-12 181918.png';
+import skinport from '../public/Skinport Output.png';
 import { AiFillGithub } from 'react-icons/ai';
 import { AiOutlineUnorderedList } from 'react-icons/ai';
 import { GiSkills } from 'react-icons/gi';
@@ -28,6 +28,13 @@ export default function Home() {
       image: project2,
       languages: ['C++', 'Node.js', 'SQL', 'React'],
       link: '../site/#writeups#loader',
+    },
+    {
+      title: 'Skinport Trading Bot',
+      description: 'Counter Strike trading bot created for Skinport that generated 700% of the inital investment passivly in 4.5 months. This was a C++ appplication that connected to a WebSocket from a chrome extension, and Skinports API.',
+      image: skinport,
+      languages: ['C++', 'Javascript', 'API', 'Websocket',],
+      link: '../site/#writeups#skinportbot',
     },
   ];
 
@@ -186,6 +193,7 @@ export default function Home() {
                   />
 
                   {/* Arrows */}
+                  <Reveal>
                   <div className="absolute top-1/2 transform -translate-y-1/2 flex justify-between w-full">
                     <div className="cursor-pointer" onClick={() => prevProject()}>
                       <AiOutlineArrowLeft className={`text-3xl text-white`} />
@@ -194,6 +202,7 @@ export default function Home() {
                       <AiOutlineArrowRight className={`text-3xl text-white`} />
                     </div>
                   </div>
+                  </Reveal>
                 </div>
 
                 {/* Languages */}
