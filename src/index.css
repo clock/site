@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 27% 4%;
+    --foreground: 142 100% 97%;
+    --card: 220 27% 6%;
+    --card-foreground: 142 100% 97%;
+    --popover: 220 27% 6%;
+    --popover-foreground: 142 100% 97%;
+    --primary: 142 100% 50%;
+    --primary-foreground: 220 27% 4%;
+    --secondary: 220 27% 12%;
+    --secondary-foreground: 142 100% 97%;
+    --muted: 220 27% 12%;
+    --muted-foreground: 142 70% 70%;
+    --accent: 160 84% 39%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 142 100% 97%;
+    --border: 0 0% 10%;
+    --input: 0 0% 10%;
+    --ring: 160 84% 39%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  body {
+    @apply text-white;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #0a0a0a;
+    cursor: none;
+  }
+
+  * {
+    cursor: none !important;
+  }
+
+  canvas {
+    cursor: none !important;
+  }
+
+  #root {
+    @apply w-screen min-h-screen overflow-x-hidden;
+  }
+}
+
+@layer utilities {
+  .scanline-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background: linear-gradient(
+      transparent 50%,
+      rgba(0, 255, 65, 0.02) 50%
+    );
+    background-size: 100% 4px;
+    z-index: 9999;
+    animation: scanline 8s linear infinite;
+  }
+
+  .noise-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    z-index: 9998;
+  }
+
+
+  .glitch-text {
+    position: relative;
+  }
+
+  .glitch-text::before,
+  .glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .glitch-text::before {
+    left: 2px;
+    text-shadow: -2px 0 #ff00c1;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch 0.5s infinite;
+  }
+
+  .glitch-text::after {
+    left: -2px;
+    text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch 0.5s infinite reverse;
+  }
+}
