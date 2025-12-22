@@ -100,7 +100,6 @@ export function createPixelationPass(
 }
 
 export function getResolutionForLevel(level: '240p' | '360p' | '720p'): { width: number; height: number } {
-  const aspect = window.innerWidth / window.innerHeight
   switch (level) {
     case '240p':
       return { width: 320, height: 180 }

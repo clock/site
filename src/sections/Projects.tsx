@@ -70,7 +70,7 @@ const projects = [
     role: 'Frontend Developer',
     constraints: 'Markdown rendering, responsive design',
     outcome: 'Functional portfolio with project showcase and blog',
-    github: 'https://github.com/clock/site',
+    github: 'https://github.com/clock/site/tree/react-portfolio',
     demo: 'https://clock.github.io/site/',
   },
 ]
@@ -216,7 +216,7 @@ export default function Projects() {
                         <motion.button
                           whileHover={{ opacity: 0.9 }}
                           whileTap={{ opacity: 0.8 }}
-                          onClick={() => window.open(projects[selectedProject].github, '_blank')}
+                          onClick={() => projects[selectedProject].github && window.open(projects[selectedProject].github, '_blank')}
                           className="px-6 py-3 bg-accent text-white font-medium hover:bg-accent-dark transition-colors border border-accent"
                         >
                           GitHub
@@ -226,7 +226,7 @@ export default function Projects() {
                         <motion.button
                           whileHover={{ opacity: 0.9 }}
                           whileTap={{ opacity: 0.8 }}
-                          onClick={() => window.open(projects[selectedProject].demo, '_blank')}
+                          onClick={() => projects[selectedProject].demo && window.open(projects[selectedProject].demo, '_blank')}
                           className="px-6 py-3 border border-border-dark text-gray-300 hover:border-accent hover:text-white transition-colors font-medium"
                         >
                           Live Demo

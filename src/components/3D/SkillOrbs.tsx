@@ -5,7 +5,7 @@ import { useMousePosition } from '@/hooks/useMousePosition'
 
 const skills = ['React', 'TS', '3D', 'Node', 'UI']
 
-function SkillOrb({ position, delay, label, mouseInfluence }: { position: [number, number, number], delay: number, label: string, mouseInfluence: [number, number] }) {
+function SkillOrb({ position, delay, mouseInfluence }: { position: [number, number, number], delay: number, mouseInfluence: [number, number] }) {
   const meshRef = useRef<Mesh>(null)
   const basePosition = useRef([position[0], position[1], position[2]])
 
@@ -63,7 +63,6 @@ export default function SkillOrbs() {
               Math.sin(angle) * radius
             ]}
             delay={i * 0.2}
-            label={skill}
             mouseInfluence={mouseInfluence}
           />
         )

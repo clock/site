@@ -34,15 +34,17 @@ function FloatingShape({ position, delay, shape }: { position: [number, number, 
 }
 
 export default function ContactMesh() {
+  const shapes: Array<{ shape: 'sphere' | 'torus', pos: [number, number, number] }> = [
+    { shape: 'sphere', pos: [-2, 0, -3] },
+    { shape: 'torus', pos: [0, 1, -2] },
+    { shape: 'sphere', pos: [2, -1, -3] },
+  ]
+  
   return (
     <>
       <ambientLight intensity={0.6} />
       <pointLight position={[5, 5, 5]} intensity={0.5} color="#10b981" />
-      {[
-        { shape: 'sphere' as const, pos: [-2, 0, -3] },
-        { shape: 'torus' as const, pos: [0, 1, -2] },
-        { shape: 'sphere' as const, pos: [2, -1, -3] },
-      ].map((item, i) => (
+      {shapes.map((item, i) => (
         <FloatingShape
           key={i}
           position={item.pos}

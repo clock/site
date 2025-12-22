@@ -82,7 +82,7 @@ export default function About() {
                       { name: 'Low-Level Programming', desc: 'C/C++ and system internals' },
                       { name: 'Reverse Engineering', desc: 'Analyzing software internals' },
                       { name: 'Full Stack Applications', desc: 'Building end-to-end solutions' },
-                    ].map((interest, index) => (
+                    ].map((interest) => (
                       <motion.div
                         key={interest.name}
                         className="flex flex-col gap-2 p-3 bg-dark border border-border-dark hover:border-accent transition-all cursor-pointer group"
