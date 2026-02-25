@@ -44,15 +44,20 @@
     @apply text-white;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     background: #0a0a0a;
-    cursor: none;
   }
 
-  * {
-    cursor: none !important;
-  }
+  @media (pointer: fine) {
+    body {
+      cursor: none;
+    }
 
-  canvas {
-    cursor: none !important;
+    * {
+      cursor: none !important;
+    }
+
+    canvas {
+      cursor: none !important;
+    }
   }
 
   #root {

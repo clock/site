@@ -12,7 +12,7 @@ function App() {
   }, [])
 
   return (
-    <div className="relative w-screen min-h-screen overflow-x-hidden bg-dark cursor-none">
+    <div className="relative w-screen min-h-screen overflow-x-hidden bg-dark">
       <InteractiveCursor />
       <Navigation />
 
