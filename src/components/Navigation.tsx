@@ -11,7 +11,6 @@ const navItems = [
 
 export default function Navigation() {
   const [activeSection, setActiveSection] = useState('hero')
-  const [isVisible, setIsVisible] = useState(true)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,8 +24,6 @@ export default function Navigation() {
           break
         }
       }
-
-      setIsVisible(window.scrollY < 50 || window.scrollY > window.innerHeight)
     }
 
     window.addEventListener('scroll', handleScroll)
@@ -45,7 +42,7 @@ export default function Navigation() {
   return (
     <motion.nav
       initial={{ y: -100 }}
-      animate={{ y: isVisible ? 0 : -100 }}
+      animate={{ y: 0 }}
       className="fixed top-0 left-0 right-0 z-50 px-6 py-4 bg-dark/80 backdrop-blur-md border-b border-border-dark"
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center">

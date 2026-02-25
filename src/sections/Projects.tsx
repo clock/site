@@ -79,6 +79,7 @@ const projects: Project[] = [
     outcome: 'Functional internal client with custom UI and features',
     github: 'https://github.com/clock/minecraft-internal',
     demo: null,
+    video: 'https://www.youtube.com/watch?v=ufV-bvG4dhI',
   },
   {
     title: 'CSS Backtrack',
