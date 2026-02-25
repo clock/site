@@ -98,8 +98,8 @@ const websites: Website[] = [
   {
     title: 'tracker.gd',
     description: 'Geometry Dash stat tracking site with player comparisons and customizable graphs',
-    thumbnail: `${BASE}tracker-gd/home.png`,
-    images: [`${BASE}tracker-gd/home.png`, `${BASE}tracker-gd/main.png`],
+    thumbnail: `${BASE}tracker-gd/main.png`,
+    images: [`${BASE}tracker-gd/main.png`, `${BASE}tracker-gd/home.png`],
     demo: 'https://tracker.gd',
   },
   {
@@ -167,10 +167,10 @@ export default function Projects() {
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                whileInView={{ opacity: 1, y: 0, transition: { duration: 0.5, delay: index * 0.1 } }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ y: -5 }}
+                transition={{ duration: 0.2 }}
+                whileHover={{ y: -5, transition: { duration: 0.2, delay: 0 } }}
                 onMouseEnter={() => setHoveredCardIndex(index)}
                 onMouseLeave={() => setHoveredCardIndex(null)}
               >
@@ -275,7 +275,8 @@ export default function Projects() {
               )}
             </div>
 
-            {/* Site info */}
+            {/* Site info - fixed height so controls never shift */}
+            <div className="relative h-[144px] md:h-[96px] overflow-hidden">
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
                 key={activeIndex}
@@ -283,11 +284,11 @@ export default function Projects() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -4 }}
                 transition={{ duration: 0.2 }}
-                className="flex flex-col md:flex-row md:items-start md:justify-between gap-4"
+                className="absolute inset-x-0 top-0 flex flex-col md:flex-row md:items-start md:justify-between gap-4"
               >
                 <div>
                   <h3 className="text-white font-semibold text-2xl mb-2">{site.title}</h3>
-                  <p className="text-gray-400 leading-relaxed max-w-xl">{site.description}</p>
+                  <p className="text-gray-400 leading-relaxed max-w-xl line-clamp-2">{site.description}</p>
                 </div>
                 <div className="flex gap-3 flex-shrink-0 md:items-start">
                   {site.demo && (
@@ -313,9 +314,10 @@ export default function Projects() {
                 </div>
               </motion.div>
             </AnimatePresence>
+            </div>
 
             {/* Carousel controls */}
-            <div className="flex items-center gap-4 mt-8">
+            <div className="flex items-center justify-center md:justify-start gap-4 mt-8">
               <button
                 onClick={() => navigate(-1)}
                 className="w-10 h-10 border border-border-dark flex items-center justify-center text-gray-400 hover:text-accent hover:border-accent transition-all font-mono text-lg"
