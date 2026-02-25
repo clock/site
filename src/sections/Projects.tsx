@@ -88,19 +88,19 @@ interface Website {
 
 const websites: Website[] = [
   {
+    title: 'tracker.gd',
+    description: 'Geometry Dash stat tracking site with player comparisons and customizable graphs',
+    thumbnail: `${BASE}tracker-gd/main.png`,
+    images: [`${BASE}tracker-gd/main.png`, `${BASE}tracker-gd/home.png`],
+    demo: 'https://tracker.gd',
+  },
+  {
     title: 'CS Anticheat',
     description: 'Management dashboard for CS Supremacy — real-time user monitoring, HWID tracking, and ban management',
     thumbnail: `${BASE}anticheat/main.png`,
     images: [`${BASE}anticheat/main.png`, `${BASE}anticheat/2.png`, `${BASE}anticheat/3.png`, `${BASE}anticheat/4.png`],
     demo: 'https://clock.github.io/anticheat-frontend-demo/',
     github: 'https://github.com/clock/anticheat-frontend-demo',
-  },
-  {
-    title: 'tracker.gd',
-    description: 'Geometry Dash stat tracking site with player comparisons and customizable graphs',
-    thumbnail: `${BASE}tracker-gd/main.png`,
-    images: [`${BASE}tracker-gd/main.png`, `${BASE}tracker-gd/home.png`],
-    demo: 'https://tracker.gd',
   },
   {
     title: 'Periphdle',

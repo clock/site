@@ -9,6 +9,8 @@ import InteractiveCursor from './components/InteractiveCursor'
 function App() {
   useEffect(() => {
     document.documentElement.style.scrollBehavior = 'smooth'
+    history.scrollRestoration = 'manual'
+    window.scrollTo(0, 0)
   }, [])
 
   return (

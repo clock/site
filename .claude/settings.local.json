@@ -10,7 +10,10 @@
       "Bash(powershell.exe -Command \"Get-Item ''C:\\\\tmp\\\\get_dims.ps1''\")",
       "Bash(powershell.exe -Command \"ls env: | Where-Object Name -eq TEMP\")",
       "Bash(powershell.exe -ExecutionPolicy Bypass -File \"C:\\\\Users\\\\testi\\\\AppData\\\\Local\\\\Temp\\\\get_dims.ps1\")",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git pull:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
     ]
   }
 }

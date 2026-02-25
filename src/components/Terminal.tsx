@@ -72,12 +72,10 @@ export default function Terminal() {
             {line.text}
           </div>
         ))}
-        {currentLine < terminalSequence.length && (
-          <div className="text-accent">
-            <span>$ </span>
-            <span className={showCursor ? 'opacity-100' : 'opacity-0'}>█</span>
-          </div>
-        )}
+        <div className="text-accent">
+          <span>$ </span>
+          <span className={showCursor ? 'opacity-100' : 'opacity-0'}>█</span>
+        </div>
       </div>
     </div>
   )
