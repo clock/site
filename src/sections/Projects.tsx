@@ -21,7 +21,7 @@ const projects = [
     demo: 'https://clock.github.io/anticheat-frontend-demo/',
   },
   {
-    title: 'command-strip',
+    title: 'Command-strip',
     description: 'Unfinished CS:GO anticheat recode using VAC-style streaming detection modules manually mapped into the game process',
     tech: ['C++', 'WebSockets', 'TLS', 'PE Manipulation', 'Zydis', 'LIEF'],
     objective: 'Redesign the anticheat using VAC-style encrypted streaming logic blobs manually mapped into memory at runtime — never written to disk',
@@ -88,16 +88,16 @@ interface Website {
 
 const websites: Website[] = [
   {
-    title: 'CS Supremacy',
-    description: 'Anticheat management dashboard with real-time user monitoring and HWID tracking',
+    title: 'CS Anticheat',
+    description: 'Management dashboard for CS Supremacy — real-time user monitoring, HWID tracking, and ban management',
     thumbnail: `${BASE}anticheat/main.png`,
     images: [`${BASE}anticheat/main.png`, `${BASE}anticheat/2.png`, `${BASE}anticheat/3.png`, `${BASE}anticheat/4.png`],
     demo: 'https://clock.github.io/anticheat-frontend-demo/',
     github: 'https://github.com/clock/anticheat-frontend-demo',
   },
   {
-    title: 'GD Tracker',
-    description: 'Geometry Dash level and stats tracking site',
+    title: 'tracker.gd',
+    description: 'Geometry Dash stat tracking site with player comparisons and customizable graphs',
     thumbnail: `${BASE}tracker-gd/home.png`,
     images: [`${BASE}tracker-gd/home.png`, `${BASE}tracker-gd/main.png`],
     demo: 'https://tracker.gd',
@@ -176,7 +176,7 @@ export default function Projects() {
               >
                 <Card
                   className={cn(
-                    'bg-card border-border-dark cursor-pointer transition-all h-full',
+                    'bg-card border-border-dark cursor-pointer transition-all h-full flex flex-col group',
                     'hover:border-accent'
                   )}
                   onClick={() => setSelectedProject(index)}
@@ -201,11 +201,11 @@ export default function Projects() {
                       ))}
                     </div>
                   </CardContent>
-                  {(project.github || project.demo) && (
-                    <CardFooter>
-                      <div className="text-xs text-accent font-medium">Click for details →</div>
-                    </CardFooter>
-                  )}
+                  <CardFooter className="mt-auto">
+                    <div className="text-xs text-accent/60 font-medium flex items-center gap-1 group-hover:text-accent group-hover:gap-2 transition-all duration-200">
+                      Click for details →
+                    </div>
+                  </CardFooter>
                 </Card>
               </motion.div>
             ))}
