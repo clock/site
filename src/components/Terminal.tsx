@@ -9,7 +9,7 @@ const terminalSequence: TerminalLine[] = [
   { type: 'command', text: '$ cat aiden.json' },
   { type: 'output', text: '{' },
   { type: 'output', text: '\t"name": "Aiden",' },
-  { type: 'output', text: '\t"skills": ["C++", "React", "Node.js", "Python"],' },
+  { type: 'output', text: '\t"skills": ["C++", "React", "TypeScript", "Python"],' },
   { type: 'output', text: '\t"focus": "Game security & anticheat development"' },
   { type: 'output', text: '}' },
 ]
