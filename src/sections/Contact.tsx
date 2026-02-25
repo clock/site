@@ -98,10 +98,7 @@ export default function Contact() {
                     aidenvanderwyst@gmail.com
                   </a>
                   <p className="text-gray-400 text-sm leading-relaxed">
-                    Feel free to reach out for collaboration or inquiries.
-                  </p>
-                  <p className="text-gray-400 text-sm leading-relaxed">
-                    I typically respond within 24 hours. For urgent matters, feel free to reach out via social media.
+                    Feel free to reach out for collaboration or inquiries. I typically respond within 24 hours.
                   </p>
                 </CardContent>
               </Card>

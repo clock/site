@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card'
@@ -6,16 +6,29 @@ import { cn } from '@/lib/utils'
 import ProjectMesh from '@/components/3D/ProjectMesh'
 import AnimatedBackgroundPattern from '@/components/AnimatedBackgroundPattern'
 
+const BASE = import.meta.env.BASE_URL
+
 const projects = [
   {
-    title: 'CS Anticheat System',
-    description: 'Full-stack anticheat system for CS Supremacy servers with usermode protection',
+    title: 'CSGO Anticheat System',
+    description: 'Full-stack anticheat system for old CS:GO servers (CS Supremacy) with usermode protection and a React management dashboard',
     tech: ['C++', 'React', 'Node.js', 'SQLite', 'WebSockets'],
-    objective: 'Create a scalable anticheat system for old CS:GO servers',
+    objective: 'Create a scalable anticheat system for old CS:GO servers running on CS Supremacy',
     role: 'Full-stack Developer',
     constraints: 'Usermode only, needs to handle thousands of users, real-time detection',
     outcome: 'Serving 10,000+ users with comprehensive HWID tracking and security',
-    github: null,
+    github: 'https://github.com/clock/anticheat-frontend-demo',
+    demo: 'https://clock.github.io/anticheat-frontend-demo/',
+  },
+  {
+    title: 'command-strip',
+    description: 'Unfinished CS:GO anticheat recode using VAC-style streaming detection modules manually mapped into the game process',
+    tech: ['C++', 'WebSockets', 'TLS', 'PE Manipulation', 'Zydis', 'LIEF'],
+    objective: 'Redesign the anticheat using VAC-style encrypted streaming logic blobs manually mapped into memory at runtime — never written to disk',
+    role: 'Systems Developer',
+    constraints: 'Position-independent DLLs, manual PE mapping, encrypted WebSocket delivery, binary mutation via MBA and x64 disassembly to break external cheat signatures',
+    outcome: 'Unfinished and never completed — code released as reference. Core architecture designed, individual modules partially implemented.',
+    github: 'https://github.com/clock/command-strip',
     demo: null,
   },
   {
@@ -62,30 +75,73 @@ const projects = [
     github: 'https://github.com/clock/css-backtrack',
     demo: null,
   },
+]
+
+interface Website {
+  title: string
+  description: string
+  thumbnail: string | null
+  images: string[]
+  demo?: string | null
+  github?: string | null
+}
+
+const websites: Website[] = [
   {
-    title: 'Portfolio Website',
-    description: 'Portfolio website with writeups and projects built with React and Tailwind',
-    tech: ['React', 'JavaScript', 'Tailwind CSS', 'Markdown'],
-    objective: 'Create portfolio site with markdown renderer for writeups',
-    role: 'Frontend Developer',
-    constraints: 'Markdown rendering, responsive design',
-    outcome: 'Functional portfolio with project showcase and blog',
-    github: 'https://github.com/clock/site/tree/react-portfolio',
-    demo: 'https://clock.github.io/site/',
+    title: 'CS Supremacy',
+    description: 'Anticheat management dashboard with real-time user monitoring and HWID tracking',
+    thumbnail: `${BASE}anticheat/main.png`,
+    images: [`${BASE}anticheat/main.png`, `${BASE}anticheat/2.png`, `${BASE}anticheat/3.png`, `${BASE}anticheat/4.png`],
+    demo: 'https://clock.github.io/anticheat-frontend-demo/',
+    github: 'https://github.com/clock/anticheat-frontend-demo',
+  },
+  {
+    title: 'GD Tracker',
+    description: 'Geometry Dash level and stats tracking site',
+    thumbnail: `${BASE}tracker-gd/home.png`,
+    images: [`${BASE}tracker-gd/home.png`, `${BASE}tracker-gd/main.png`],
+    demo: 'https://tracker.gd',
+  },
+  {
+    title: 'Periphdle',
+    description: 'Wordle-inspired game where you guess the gaming mouse',
+    thumbnail: `${BASE}perifdle/1.png`,
+    images: [`${BASE}perifdle/1.png`, `${BASE}perifdle/2.png`],
   },
 ]
+
+const slideVariants = {
+  enter: (dir: number) => ({ x: dir > 0 ? '100%' : '-100%' }),
+  center: { x: 0 },
+  exit: (dir: number) => ({ x: dir < 0 ? '100%' : '-100%' }),
+}
 
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState<number | null>(null)
   const [hoveredCardIndex, setHoveredCardIndex] = useState<number | null>(null)
+  const [activeIndex, setActiveIndex] = useState(0)
+  const [direction, setDirection] = useState(0)
+  const [lightbox, setLightbox] = useState<{ site: Website; imgIdx: number } | null>(null)
+
+  const navigate = (dir: number) => {
+    setDirection(dir)
+    setActiveIndex(i => ((i + dir) % websites.length + websites.length) % websites.length)
+  }
+
+  const goTo = (i: number) => {
+    setDirection(i > activeIndex ? 1 : -1)
+    setActiveIndex(i)
+  }
+
+  const site = websites[activeIndex]
 
   return (
     <section
       id="projects"
-      className="relative min-h-screen flex items-center justify-center px-4 py-20 bg-card/30 overflow-hidden"
+      className="relative flex items-center justify-center px-4 py-20 bg-card/30 overflow-hidden"
     >
       <AnimatedBackgroundPattern />
-      
+
       {/* Three.js Background */}
       <div className="absolute inset-0 opacity-20 pointer-events-none z-0" style={{ top: '20%' }}>
         <Canvas camera={{ position: [0, -1, 8], fov: 50 }}>
@@ -100,10 +156,9 @@ export default function Projects() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
+          {/* Projects grid */}
           <div className="mb-12">
-            <h2 className="text-5xl md:text-7xl font-bold mb-4 text-white">
-              Projects
-            </h2>
+            <h2 className="text-5xl md:text-7xl font-bold mb-4 text-white">Projects</h2>
             <div className="h-1 w-32 bg-accent"></div>
           </div>
 
@@ -121,8 +176,8 @@ export default function Projects() {
               >
                 <Card
                   className={cn(
-                    "bg-card border-border-dark cursor-pointer transition-all h-full",
-                    "hover:border-accent"
+                    'bg-card border-border-dark cursor-pointer transition-all h-full',
+                    'hover:border-accent'
                   )}
                   onClick={() => setSelectedProject(index)}
                 >
@@ -146,20 +201,151 @@ export default function Projects() {
                       ))}
                     </div>
                   </CardContent>
-                  {project.github && (
+                  {(project.github || project.demo) && (
                     <CardFooter>
-                      <div className="text-xs text-accent font-medium">
-                        Click for details →
-                      </div>
+                      <div className="text-xs text-accent font-medium">Click for details →</div>
                     </CardFooter>
                   )}
                 </Card>
               </motion.div>
             ))}
           </div>
+
+          {/* Frontend carousel */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mt-20"
+          >
+            <div className="flex items-center gap-4 mb-8">
+              <div className="h-px flex-1 bg-border-dark" />
+              <span className="text-gray-500 text-xs font-mono tracking-widest uppercase">frontend</span>
+              <div className="h-px flex-1 bg-border-dark" />
+            </div>
+
+            {/* Thumbnail */}
+            <div
+              className={cn(
+                'relative aspect-video bg-card border border-border-dark overflow-hidden mb-6',
+                'hover:border-accent/50 transition-colors duration-300',
+                site.images.length > 0 ? 'cursor-pointer' : 'cursor-default'
+              )}
+              onClick={() => site.images.length > 0 && setLightbox({ site, imgIdx: 0 })}
+            >
+              <AnimatePresence custom={direction} initial={false}>
+                <motion.div
+                  key={activeIndex}
+                  custom={direction}
+                  variants={slideVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+                  className="absolute inset-0"
+                >
+                  {site.thumbnail ? (
+                    <img src={site.thumbnail} alt={site.title} className="w-full h-full object-cover object-top" />
+                  ) : (
+                    <>
+                      <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-accent/10" />
+                      <div
+                        className="absolute inset-0 opacity-[0.06]"
+                        style={{
+                          backgroundImage:
+                            'linear-gradient(#10b981 1px, transparent 1px), linear-gradient(90deg, #10b981 1px, transparent 1px)',
+                          backgroundSize: '32px 32px',
+                        }}
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="text-8xl font-bold text-accent/20 select-none font-mono">
+                          {site.title.slice(0, 2).toUpperCase()}
+                        </span>
+                      </div>
+                    </>
+                  )}
+                </motion.div>
+              </AnimatePresence>
+
+              {site.images.length > 0 && (
+                <div className="absolute bottom-3 right-3 z-10 bg-accent text-dark text-xs font-semibold px-3 py-1 font-mono">
+                  {site.images.length} screenshot{site.images.length > 1 ? 's' : ''}
+                </div>
+              )}
+            </div>
+
+            {/* Site info */}
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={activeIndex}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -4 }}
+                transition={{ duration: 0.2 }}
+                className="flex flex-col md:flex-row md:items-start md:justify-between gap-4"
+              >
+                <div>
+                  <h3 className="text-white font-semibold text-2xl mb-2">{site.title}</h3>
+                  <p className="text-gray-400 leading-relaxed max-w-xl">{site.description}</p>
+                </div>
+                <div className="flex gap-3 flex-shrink-0 md:items-start">
+                  {site.demo && (
+                    <a
+                      href={site.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-4 py-2 bg-accent text-dark text-xs font-semibold hover:opacity-90 transition-opacity"
+                    >
+                      Live Demo →
+                    </a>
+                  )}
+                  {site.github && (
+                    <a
+                      href={site.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-4 py-2 border border-border-dark text-xs text-gray-300 hover:border-accent hover:text-white transition-all"
+                    >
+                      GitHub →
+                    </a>
+                  )}
+                </div>
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Carousel controls */}
+            <div className="flex items-center gap-4 mt-8">
+              <button
+                onClick={() => navigate(-1)}
+                className="w-10 h-10 border border-border-dark flex items-center justify-center text-gray-400 hover:text-accent hover:border-accent transition-all font-mono text-lg"
+              >
+                ←
+              </button>
+              <div className="flex gap-2 items-center">
+                {websites.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => goTo(i)}
+                    className={cn(
+                      'h-0.5 transition-all duration-300',
+                      activeIndex === i ? 'w-8 bg-accent' : 'w-2 bg-border-dark hover:bg-gray-600'
+                    )}
+                  />
+                ))}
+              </div>
+              <button
+                onClick={() => navigate(1)}
+                className="w-10 h-10 border border-border-dark flex items-center justify-center text-gray-400 hover:text-accent hover:border-accent transition-all font-mono text-lg"
+              >
+                →
+              </button>
+            </div>
+          </motion.div>
         </motion.div>
       </div>
 
+      {/* Project detail modal */}
       {selectedProject !== null && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
@@ -189,56 +375,133 @@ export default function Projects() {
                   <div className="text-accent font-semibold mb-2">Objective</div>
                   <div className="text-gray-300 pl-4">{projects[selectedProject].objective}</div>
                 </div>
-
                 <div>
                   <div className="text-accent font-semibold mb-2">Tech Stack</div>
                   <div className="text-gray-300 pl-4">{projects[selectedProject].tech.join(', ')}</div>
                 </div>
-
                 <div>
                   <div className="text-accent font-semibold mb-2">Role</div>
                   <div className="text-gray-300 pl-4">{projects[selectedProject].role}</div>
                 </div>
-
                 <div>
                   <div className="text-accent font-semibold mb-2">Constraints</div>
                   <div className="text-gray-300 pl-4">{projects[selectedProject].constraints}</div>
                 </div>
-
                 <div>
                   <div className="text-accent font-semibold mb-2">Outcome</div>
                   <div className="text-gray-300 pl-4">{projects[selectedProject].outcome}</div>
                 </div>
-
-                  {(projects[selectedProject].github || projects[selectedProject].demo) && (
-                    <div className="flex gap-4 pt-4">
-                      {projects[selectedProject].github && (
-                        <motion.button
-                          whileHover={{ opacity: 0.9 }}
-                          whileTap={{ opacity: 0.8 }}
-                          onClick={() => projects[selectedProject].github && window.open(projects[selectedProject].github, '_blank')}
-                          className="px-6 py-3 bg-accent text-white font-medium hover:bg-accent-dark transition-colors border border-accent"
-                        >
-                          GitHub
-                        </motion.button>
-                      )}
-                      {projects[selectedProject].demo && (
-                        <motion.button
-                          whileHover={{ opacity: 0.9 }}
-                          whileTap={{ opacity: 0.8 }}
-                          onClick={() => projects[selectedProject].demo && window.open(projects[selectedProject].demo, '_blank')}
-                          className="px-6 py-3 border border-border-dark text-gray-300 hover:border-accent hover:text-white transition-colors font-medium"
-                        >
-                          Live Demo
-                        </motion.button>
-                      )}
-                    </div>
-                  )}
+                {(projects[selectedProject].github || projects[selectedProject].demo) && (
+                  <div className="flex gap-4 pt-4">
+                    {projects[selectedProject].github && (
+                      <motion.button
+                        whileHover={{ opacity: 0.9 }}
+                        whileTap={{ opacity: 0.8 }}
+                        onClick={() => projects[selectedProject].github && window.open(projects[selectedProject].github!, '_blank')}
+                        className="px-6 py-3 bg-accent text-white font-medium hover:bg-accent-dark transition-colors border border-accent"
+                      >
+                        GitHub
+                      </motion.button>
+                    )}
+                    {projects[selectedProject].demo && (
+                      <motion.button
+                        whileHover={{ opacity: 0.9 }}
+                        whileTap={{ opacity: 0.8 }}
+                        onClick={() => projects[selectedProject].demo && window.open(projects[selectedProject].demo!, '_blank')}
+                        className="px-6 py-3 border border-border-dark text-gray-300 hover:border-accent hover:text-white transition-colors font-medium"
+                      >
+                        Live Demo
+                      </motion.button>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           </motion.div>
         </div>
       )}
+
+      {/* Lightbox */}
+      <AnimatePresence>
+        {lightbox && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm"
+            onClick={() => setLightbox(null)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.2 }}
+              className="w-full max-w-5xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex justify-between items-center mb-4">
+                <div>
+                  <h3 className="text-white font-semibold text-xl">{lightbox.site.title}</h3>
+                  <p className="text-gray-400 text-sm">
+                    {lightbox.imgIdx + 1} / {lightbox.site.images.length}
+                  </p>
+                </div>
+                <button
+                  onClick={() => setLightbox(null)}
+                  className="text-gray-400 hover:text-accent transition-colors text-3xl leading-none"
+                >
+                  ×
+                </button>
+              </div>
+
+              <div className="relative aspect-video bg-card border border-border-dark overflow-hidden">
+                <AnimatePresence mode="wait">
+                  <motion.img
+                    key={lightbox.imgIdx}
+                    src={lightbox.site.images[lightbox.imgIdx]}
+                    alt={`${lightbox.site.title} screenshot ${lightbox.imgIdx + 1}`}
+                    className="w-full h-full object-contain"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.15 }}
+                  />
+                </AnimatePresence>
+                {lightbox.imgIdx > 0 && (
+                  <button
+                    onClick={() => setLightbox({ ...lightbox, imgIdx: lightbox.imgIdx - 1 })}
+                    className="absolute left-0 inset-y-0 w-16 flex items-center justify-center text-3xl text-white/40 hover:text-white hover:bg-black/20 transition-all"
+                  >
+                    ‹
+                  </button>
+                )}
+                {lightbox.imgIdx < lightbox.site.images.length - 1 && (
+                  <button
+                    onClick={() => setLightbox({ ...lightbox, imgIdx: lightbox.imgIdx + 1 })}
+                    className="absolute right-0 inset-y-0 w-16 flex items-center justify-center text-3xl text-white/40 hover:text-white hover:bg-black/20 transition-all"
+                  >
+                    ›
+                  </button>
+                )}
+              </div>
+
+              {lightbox.site.images.length > 1 && (
+                <div className="flex gap-2 mt-3 overflow-x-auto">
+                  {lightbox.site.images.map((img, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setLightbox({ ...lightbox, imgIdx: i })}
+                      className={cn(
+                        'flex-shrink-0 w-20 h-14 overflow-hidden border-2 transition-all',
+                        lightbox.imgIdx === i ? 'border-accent' : 'border-border-dark hover:border-gray-600'
+                      )}
+                    >
+                      <img src={img} alt="" className="w-full h-full object-cover" />
+                    </button>
+                  ))}
+                </div>
+              )}
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </section>
   )
 }

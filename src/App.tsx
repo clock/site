@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 import Hero from './sections/Hero'
 import About from './sections/About'
 import Projects from './sections/Projects'
-import Skills from './sections/Skills'
 import Contact from './sections/Contact'
 import Navigation from './components/Navigation'
 import InteractiveCursor from './components/InteractiveCursor'
@@ -21,7 +20,6 @@ function App() {
         <Hero />
         <About />
         <Projects />
-        <Skills />
         <Contact />
       </main>
     </div>

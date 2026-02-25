@@ -28,6 +28,7 @@ function ParticleSystem() {
 
   useFrame((state) => {
     if (!meshRef.current || !particlesRef.current) return
+    if (!particlesRef.current.attributes.position) return
 
     const positions = particlesRef.current.attributes.position.array as Float32Array
     const velocities = (meshRef.current as any).userData.velocities as Float32Array
