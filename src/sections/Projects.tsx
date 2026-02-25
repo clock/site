@@ -30,6 +30,7 @@ const projects = [
     outcome: 'Unfinished and never completed — code released as reference. Core architecture designed, individual modules partially implemented.',
     github: 'https://github.com/clock/command-strip',
     demo: null,
+    images: [`${BASE}command-strip/image.png`],
   },
   {
     title: 'Software Loader',
@@ -162,7 +163,8 @@ export default function Projects() {
             <div className="h-1 w-32 bg-accent"></div>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          <div className="flex flex-col md:block">
+          <div className="order-2 md:order-none grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-8">
             {projects.map((project, index) => (
               <motion.div
                 key={index}
@@ -181,27 +183,27 @@ export default function Projects() {
                   )}
                   onClick={() => setSelectedProject(index)}
                 >
-                  <CardHeader>
-                    <CardTitle className="font-semibold text-accent text-lg">
+                  <CardHeader className="p-3 md:p-6">
+                    <CardTitle className="font-semibold text-accent text-sm md:text-lg">
                       {project.title}
                     </CardTitle>
-                    <CardDescription className="text-gray-400 text-sm">
+                    <CardDescription className="text-gray-400 text-xs md:text-sm line-clamp-3">
                       {project.description}
                     </CardDescription>
                   </CardHeader>
-                  <CardContent>
-                    <div className="flex flex-wrap gap-2">
+                  <CardContent className="p-3 pt-0 md:p-6 md:pt-0">
+                    <div className="flex flex-wrap gap-1 md:gap-2">
                       {project.tech.map((tech) => (
                         <span
                           key={tech}
-                          className="px-3 py-1 bg-dark border border-border-dark text-xs text-gray-400"
+                          className="px-2 py-0.5 md:px-3 md:py-1 bg-dark border border-border-dark text-xs text-gray-400"
                         >
                           {tech}
                         </span>
                       ))}
                     </div>
                   </CardContent>
-                  <CardFooter className="mt-auto">
+                  <CardFooter className="mt-auto p-3 md:p-6">
                     <div className="text-xs text-accent/60 font-medium flex items-center gap-1 group-hover:text-accent group-hover:gap-2 transition-all duration-200">
                       Click for details →
                     </div>
@@ -217,7 +219,7 @@ export default function Projects() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-20"
+            className="order-1 md:order-none mt-0 mb-12 md:mt-20 md:mb-0"
           >
             <div className="flex items-center gap-4 mb-8">
               <div className="h-px flex-1 bg-border-dark" />
@@ -344,6 +346,7 @@ export default function Projects() {
               </button>
             </div>
           </motion.div>
+          </div>
         </motion.div>
       </div>
 
@@ -393,6 +396,16 @@ export default function Projects() {
                   <div className="text-accent font-semibold mb-2">Outcome</div>
                   <div className="text-gray-300 pl-4">{projects[selectedProject].outcome}</div>
                 </div>
+                {projects[selectedProject].images?.length > 0 && (
+                  <div>
+                    <div className="text-accent font-semibold mb-2">Screenshots</div>
+                    <img
+                      src={projects[selectedProject].images![0]}
+                      alt="screenshot"
+                      className="w-full border border-border-dark object-contain"
+                    />
+                  </div>
+                )}
                 {(projects[selectedProject].github || projects[selectedProject].demo) && (
                   <div className="flex gap-4 pt-4">
                     {projects[selectedProject].github && (

@@ -65,16 +65,29 @@ export default function Terminal() {
         <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
         <div className="w-3 h-3 rounded-full bg-green-500"></div>
       </div>
-      <div className="space-y-1 font-mono text-sm">
-        {lines.map((line, idx) => (
-          <div key={idx} className={line.type === 'command' ? 'text-accent' : 'text-gray-400'}>
-            {line.type === 'command' && <span>$ </span>}
-            {line.text}
+      <div className="relative">
+        {/* Ghost layer — all final content rendered invisibly to pre-allocate the full height */}
+        <div className="invisible space-y-1 font-mono text-sm" aria-hidden>
+          {terminalSequence.map((line, idx) => (
+            <div key={idx}>
+              {line.type === 'command' && <span>$ </span>}
+              {line.text}
+            </div>
+          ))}
+          <div>$ █</div>
+        </div>
+        {/* Visible typed content — overlaid absolutely so it never changes the container size */}
+        <div className="absolute inset-0 space-y-1 font-mono text-sm">
+          {lines.map((line, idx) => (
+            <div key={idx} className={line.type === 'command' ? 'text-accent' : 'text-gray-400'}>
+              {line.type === 'command' && <span>$ </span>}
+              {line.text}
+            </div>
+          ))}
+          <div className="text-accent">
+            <span>$ </span>
+            <span className={showCursor ? 'opacity-100' : 'opacity-0'}>█</span>
           </div>
-        ))}
-        <div className="text-accent">
-          <span>$ </span>
-          <span className={showCursor ? 'opacity-100' : 'opacity-0'}>█</span>
         </div>
       </div>
     </div>
