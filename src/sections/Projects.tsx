@@ -455,7 +455,7 @@ export default function Projects() {
                     <img
                       src={projects[selectedProject].images![0]}
                       alt="screenshot"
-                      className="w-full border border-border-dark object-contain"
+                      className="w-full max-h-72 border border-border-dark object-contain"
                     />
                   </div>
                 )}
