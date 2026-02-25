@@ -449,7 +449,7 @@ export default function Projects() {
                   <div className="text-accent font-semibold mb-2">Outcome</div>
                   <div className="text-gray-300 pl-4">{projects[selectedProject].outcome}</div>
                 </div>
-                {projects[selectedProject].images?.length > 0 && (
+                {(projects[selectedProject].images?.length ?? 0) > 0 && (
                   <div>
                     <div className="text-accent font-semibold mb-2">Screenshots</div>
                     <img
