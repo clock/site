@@ -8,7 +8,22 @@ import AnimatedBackgroundPattern from '@/components/AnimatedBackgroundPattern'
 
 const BASE = import.meta.env.BASE_URL
 
-const projects = [
+interface Project {
+  title: string
+  description: string
+  tech: string[]
+  objective: string
+  role: string
+  constraints: string
+  outcome: string
+  github?: string | null
+  demo?: string | null
+  images?: string[]
+  video?: string | null
+  video2?: string | null
+}
+
+const projects: Project[] = [
   {
     title: 'CSGO Anticheat System',
     description: 'Full-stack anticheat system for old CS:GO servers (CS Supremacy) with usermode protection and a React management dashboard',
@@ -76,6 +91,31 @@ const projects = [
     github: 'https://github.com/clock/css-backtrack',
     demo: null,
   },
+  {
+    title: 'DevMatch',
+    description: 'Full-stack dating app built as a group final project (INFO-3112 Byteforce) with a distributed microservices backend orchestrated on Kubernetes',
+    tech: ['Next.js', 'shadcn/ui', 'TypeScript', 'Microservices', 'Kubernetes', 'Azure', 'Docker'],
+    objective: 'Build a scalable dating platform with a distributed backend as a university group final project',
+    role: 'Full-stack Developer',
+    constraints: 'Separate database per microservice — master, matcher, media, profile, security, statistics, telemetry — each running independently in Kubernetes clusters with Azure monitoring for per-service latency and call metrics',
+    outcome: 'Functional dating platform with 7 independently deployable microservices monitored via Azure',
+    github: null,
+    demo: null,
+    video: 'https://youtu.be/IllNNjhxntI?t=692',
+  },
+  {
+    title: 'Valorant Auto Responder',
+    description: 'Python XMPP MITM proxy intercepting the Riot Client\'s local server to auto-generate witty chat replies and kill trash talk via OpenAI',
+    tech: ['Python', 'XMPP', 'OpenAI API', 'MITM', 'TLS'],
+    objective: 'Intercept the Riot Client\'s local XMPP server and inject AI-generated responses into in-game chat for both received messages and kill events',
+    role: 'Developer',
+    constraints: 'Mimic the Riot Client XMPP handshake, identify in-game player messages vs. system traffic, route responses back through the proxy without detection',
+    outcome: 'Working auto-responder that replies to chat messages and generates kill trash talk in real-time',
+    github: null,
+    demo: null,
+    video: 'https://www.youtube.com/watch?v=7yH2F-Bhsgs',
+    video2: 'https://www.youtube.com/watch?v=cgfXeMzluk8',
+  },
 ]
 
 interface Website {
@@ -85,6 +125,7 @@ interface Website {
   images: string[]
   demo?: string | null
   github?: string | null
+  video?: string | null
 }
 
 const websites: Website[] = [
@@ -94,6 +135,7 @@ const websites: Website[] = [
     thumbnail: `${BASE}tracker-gd/main.png`,
     images: [`${BASE}tracker-gd/main.png`, `${BASE}tracker-gd/home.png`],
     demo: 'https://tracker.gd',
+    video: 'https://www.youtube.com/watch?v=s9K-xlFnCj4',
   },
   {
     title: 'CS Anticheat',
@@ -278,7 +320,7 @@ export default function Projects() {
             </div>
 
             {/* Site info - fixed height so controls never shift */}
-            <div className="relative h-[144px] md:h-[96px] overflow-hidden">
+            <div className="relative h-[176px] md:h-[96px] overflow-hidden">
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
                 key={activeIndex}
@@ -292,7 +334,7 @@ export default function Projects() {
                   <h3 className="text-white font-semibold text-2xl mb-2">{site.title}</h3>
                   <p className="text-gray-400 leading-relaxed max-w-xl line-clamp-2">{site.description}</p>
                 </div>
-                <div className="flex gap-3 flex-shrink-0 md:items-start">
+                <div className="flex flex-wrap gap-3 flex-shrink-0 md:items-start">
                   {site.demo && (
                     <a
                       href={site.demo}
@@ -301,6 +343,16 @@ export default function Projects() {
                       className="px-4 py-2 bg-accent text-dark text-xs font-semibold hover:opacity-90 transition-opacity"
                     >
                       Live Demo →
+                    </a>
+                  )}
+                  {site.video && (
+                    <a
+                      href={site.video}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-4 py-2 border border-border-dark text-xs text-gray-300 hover:border-accent hover:text-white transition-all"
+                    >
+                      Watch Video →
                     </a>
                   )}
                   {site.github && (
@@ -406,8 +458,8 @@ export default function Projects() {
                     />
                   </div>
                 )}
-                {(projects[selectedProject].github || projects[selectedProject].demo) && (
-                  <div className="flex gap-4 pt-4">
+                {(projects[selectedProject].github || projects[selectedProject].demo || projects[selectedProject].video) && (
+                  <div className="flex flex-wrap gap-4 pt-4">
                     {projects[selectedProject].github && (
                       <motion.button
                         whileHover={{ opacity: 0.9 }}
@@ -426,6 +478,26 @@ export default function Projects() {
                         className="px-6 py-3 border border-border-dark text-gray-300 hover:border-accent hover:text-white transition-colors font-medium"
                       >
                         Live Demo
+                      </motion.button>
+                    )}
+                    {projects[selectedProject].video && (
+                      <motion.button
+                        whileHover={{ opacity: 0.9 }}
+                        whileTap={{ opacity: 0.8 }}
+                        onClick={() => projects[selectedProject].video && window.open(projects[selectedProject].video!, '_blank')}
+                        className="px-6 py-3 border border-border-dark text-gray-300 hover:border-accent hover:text-white transition-colors font-medium"
+                      >
+                        Watch Demo →
+                      </motion.button>
+                    )}
+                    {projects[selectedProject].video2 && (
+                      <motion.button
+                        whileHover={{ opacity: 0.9 }}
+                        whileTap={{ opacity: 0.8 }}
+                        onClick={() => projects[selectedProject].video2 && window.open(projects[selectedProject].video2!, '_blank')}
+                        className="px-6 py-3 border border-border-dark text-gray-300 hover:border-accent hover:text-white transition-colors font-medium"
+                      >
+                        Watch Demo 2 →
                       </motion.button>
                     )}
                   </div>
