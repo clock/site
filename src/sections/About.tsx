@@ -50,13 +50,12 @@ export default function About() {
                 </CardHeader>
                 <CardContent className="space-y-4 text-gray-300">
                   <p className="leading-relaxed">
-                    I'm a Computer Science student who grew up making cheats for video games, 
-                    which sparked my passion for low-level programming and system security. 
-                    I build full stack applications and explore game security.
+                    I'm a Computer Science student who grew up making cheats for video games,
+                    which sparked my passion for low-level programming and system security.
                   </p>
                   <p className="leading-relaxed">
-                    Now I focus on building anticheats and exploring game security, diving deep 
-                    into reverse engineering and system internals.
+                    Beyond game security, I build full-stack applications, experiment with AI tooling,
+                    and explore computer vision — always drawn to problems that sit close to the metal.
                   </p>
                 </CardContent>
               </Card>
@@ -81,6 +80,7 @@ export default function About() {
                       { name: 'Game Security', desc: 'Building anticheats and security systems' },
                       { name: 'Low-Level Programming', desc: 'C/C++ and system internals' },
                       { name: 'Reverse Engineering', desc: 'Analyzing software internals' },
+                      { name: 'AI & Machine Learning', desc: 'CUDA inference, computer vision, LLM tooling' },
                       { name: 'Full Stack Applications', desc: 'Building end-to-end solutions' },
                     ].map((interest) => (
                       <motion.div
@@ -120,7 +120,7 @@ export default function About() {
               { label: 'Projects', value: 12, suffix: '+' },
               { label: 'Languages', value: 8, suffix: '+' },
               { label: 'Users Served', value: 10, suffix: 'K+' },
-              { label: 'GitHub Stars', value: 15, suffix: '+' },
+              { label: 'Years Coding', value: 5, suffix: '+' },
             ].map((stat, idx) => (
               <motion.div
                 key={stat.label}

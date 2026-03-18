@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 import ProjectMesh from '@/components/3D/ProjectMesh'
 import AnimatedBackgroundPattern from '@/components/AnimatedBackgroundPattern'
@@ -117,6 +117,50 @@ const projects: Project[] = [
     video: 'https://www.youtube.com/watch?v=7yH2F-Bhsgs',
     video2: 'https://www.youtube.com/watch?v=cgfXeMzluk8',
   },
+  {
+    title: 'ffmpeg-ai',
+    description: 'CLI tool that takes plain English descriptions and prompts OpenAI to generate the correct ffmpeg command — no more memorizing flags',
+    tech: ['Python', 'OpenAI API', 'ffmpeg'],
+    objective: 'Eliminate the need to memorize complex ffmpeg syntax by translating natural language into working ffmpeg commands via GPT',
+    role: 'Developer',
+    constraints: 'Accurate command generation across a wide variety of ffmpeg operations, safe execution without blindly running generated commands',
+    outcome: 'Working CLI that consistently generates correct ffmpeg commands from plain English prompts',
+    github: 'https://github.com/clock/ffmpeg-ai',
+    demo: null,
+  },
+  {
+    title: 'YOLO Detection Base',
+    description: 'High-speed neural network inference using CUDA with support for Windows screen recording and webcam capture',
+    tech: ['C++', 'CUDA', 'YOLO', 'OpenCV', 'TensorRT'],
+    objective: 'Build a performant real-time object detection base using YOLO with CUDA-accelerated inference on Windows',
+    role: 'Developer',
+    constraints: 'Minimize inference latency via CUDA, support multiple capture sources (screen, webcam), handle real-time frame throughput',
+    outcome: 'Functional detection pipeline with CUDA inference, configurable capture sources, and real-time output',
+    github: 'https://github.com/clock/yolo-detection-base',
+    demo: null,
+  },
+  {
+    title: 'OBS Rerenderer',
+    description: 'OBS plugin for inserting, modifying, and analysing frames in the output pipeline before encoding',
+    tech: ['C++', 'OBS API'],
+    objective: 'Hook into the OBS rendering pipeline to enable frame-level manipulation and analysis before the encoder sees the output',
+    role: 'Developer',
+    constraints: 'Must integrate as a native OBS plugin, operate without disrupting the live encoding pipeline',
+    outcome: 'Working OBS plugin that intercepts and modifies frames at the output stage',
+    github: 'https://github.com/clock/obs-rerenderer',
+    demo: null,
+  },
+  {
+    title: 'tauri-cpp',
+    description: 'Template for linking C++ native code into a Tauri desktop app via Rust FFI, enabling native menus and system calls alongside a web frontend',
+    tech: ['Tauri', 'Rust', 'C++', 'JavaScript'],
+    objective: 'Bridge C++ logic into a Tauri app through Rust FFI so desktop apps can use existing native C++ libraries alongside a web UI',
+    role: 'Developer',
+    constraints: 'Safe FFI boundary between Rust and C++, correct memory ownership across language boundaries, native menu integration',
+    outcome: 'Working template demonstrating C++ → Rust FFI → Tauri IPC → JavaScript data flow',
+    github: 'https://github.com/clock/tauri-cpp',
+    demo: null,
+  },
 ]
 
 interface Website {
@@ -127,6 +171,7 @@ interface Website {
   demo?: string | null
   github?: string | null
   video?: string | null
+  thumbnailPosition?: string
 }
 
 const websites: Website[] = [
@@ -151,6 +196,14 @@ const websites: Website[] = [
     description: 'Wordle-inspired game where you guess the gaming mouse',
     thumbnail: `${BASE}perifdle/1.png`,
     images: [`${BASE}perifdle/1.png`, `${BASE}perifdle/2.png`],
+  },
+  {
+    title: 'themes',
+    description: 'Browse and export 187 CSS color themes — search by name, preview palettes, and export as CSS variables, JSON, or Tailwind config',
+    thumbnail: `${BASE}themes/1.png`,
+    images: [`${BASE}themes/1.png`],
+    github: 'https://github.com/clock/themes',
+    thumbnailPosition: 'left top',
   },
 ]
 
@@ -234,7 +287,7 @@ export default function Projects() {
                       {project.description}
                     </CardDescription>
                   </CardHeader>
-                  <CardContent className="p-3 pt-0 md:p-6 md:pt-0">
+                  <CardContent className="p-3 pt-0 md:p-6 md:pt-0 mt-auto">
                     <div className="flex flex-wrap gap-1 md:gap-2">
                       {project.tech.map((tech) => (
                         <span
@@ -246,11 +299,6 @@ export default function Projects() {
                       ))}
                     </div>
                   </CardContent>
-                  <CardFooter className="mt-auto p-3 md:p-6">
-                    <div className="text-xs text-accent/60 font-medium flex items-center gap-1 group-hover:text-accent group-hover:gap-2 transition-all duration-200">
-                      Click for details →
-                    </div>
-                  </CardFooter>
                 </Card>
               </motion.div>
             ))}
@@ -291,7 +339,7 @@ export default function Projects() {
                   className="absolute inset-0"
                 >
                   {site.thumbnail ? (
-                    <img src={site.thumbnail} alt={site.title} className="w-full h-full object-cover object-top" />
+                    <img src={site.thumbnail} alt={site.title} className="w-full h-full object-cover" style={{ objectPosition: site.thumbnailPosition ?? 'top' }} />
                   ) : (
                     <>
                       <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-accent/10" />

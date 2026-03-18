@@ -81,7 +81,7 @@ export default function Hero() {
               transition={{ delay: 0.8, duration: 0.6 }}
               className="text-lg md:text-2xl text-gray-400 max-w-lg"
             >
-              Full-stack developer building anticheats and exploring low-level systems through game security development
+              CS student. I build anticheats, dig into reverse engineering, and ship full-stack products.
             </motion.p>
 
             {/* Buttons — desktop only here */}
